@@ -31,6 +31,7 @@ func Hcompress(bytes []byte) []byte {
 	}
 	bitStream.close()
 	fmt.Println("\nCompressed size :", bitStream.size())
+	fmt.Println("")
 	return bitStream.getBytes()
 }
 

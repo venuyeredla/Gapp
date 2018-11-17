@@ -11,31 +11,10 @@ import (
 func main() {
 	host, _ := os.Hostname()
 	fmt.Println("Running on host : ", host)
-	//bytes := getText()
+	//vcomp.AbsCompress("00101000101110101001010")
 	//symDict := vcomp.Count(bytes)
-
 	//testCompression()
 	//vcomp.BitReadWriteTest()
-}
-
-func testCompression() {
-	fileName := "/home/venugopal/Documents/Code/GoData/sample.txt"
-	file, err := os.Open(fileName)
-	if err == nil {
-		var b []byte = make([]byte, 310, os.Getpagesize())
-		fmt.Println("Size:", len(b), " Capacity:", cap(b))
-		size, err := file.Read(b)
-		fmt.Println("Opened file & no of bytes read :", size)
-		if err == nil {
-			compressed := vcomp.Hcompress(b)
-			vcomp.Hdecode(compressed)
-		} else {
-			fmt.Println("Error in opening file", fileName)
-		}
-
-	} else {
-		fmt.Println("Error in opening file", fileName)
-	}
 }
 
 func getText() []byte {
