@@ -94,10 +94,6 @@ func ConfigureHttp() {
 		}
 	})
 
-	http.HandleFunc("/web", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "webapp/html/websocket.html")
-	})
-
 	http.HandleFunc("/log", logging(foo))
 	http.HandleFunc("/encode", logging(UserInfo))
 	http.HandleFunc("/decode", logging(PostUserInfo))

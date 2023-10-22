@@ -42,4 +42,3 @@ Other oeprations:
  6. Construct tree from (in,pre), (in,post) traversals.
  7. Compute the exterior of the binary tree.
  8. Implementing logcking in a binary tree.
- 9. 

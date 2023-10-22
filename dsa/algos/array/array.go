@@ -2,6 +2,7 @@ package array
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"sort"
 	"strings"
@@ -39,13 +40,12 @@ func Printable(arr []int, l, r int) string {
 }
 
 // Size=(n *(n+1))/2
-func RSubArrays(arr []int, l, r, n int) {
-	if r == n {
-	} else if r < n {
+func SubArraysR(arr []int, l, r, n int) {
+	if r < n {
 		Printable(arr, l, r)
-		RSubArrays(arr, l, r+1, n)
+		SubArraysR(arr, l, r+1, n)
 		if r+1 == n && (l+1) < n {
-			RSubArrays(arr, l+1, l+1, n)
+			SubArraysR(arr, l+1, l+1, n)
 		}
 	}
 }
@@ -60,6 +60,24 @@ func Permuations(arr []int, left, right int) {
 			Permuations(arr, left+1, right)
 			Swap(arr, left, i)
 		}
+	}
+}
+
+func Subset(arr []int) {
+	nofSubsets := int(math.Pow(2, float64(len(arr))))
+	for idx := 0; idx < nofSubsets; idx++ {
+		i := -1
+		fmt.Printf("{")
+		num := idx
+		for num > 0 {
+			bit := num & 1
+			i += 1
+			if bit == 1 {
+				fmt.Printf("%v,", arr[i])
+			}
+			num = num >> 1
+		}
+		fmt.Printf("}\n")
 	}
 }
 
@@ -243,4 +261,61 @@ func BuyAndsell(s []int) {
 	}
 
 	fmt.Println(maxPriceIdx)
+}
+
+// Range queries can be solved by Prefix sum array or Segment Trees and Binary Indexed trees.
+
+func RangeQueriesSum(input []int, queries [][2]int) []int {
+	sumArray := make([]int, len(input))
+	output := make([]int, len(queries))
+	preSum := 0
+	for i, val := range input {
+		sumArray[i] = preSum + val
+	}
+	for j := range queries {
+		from := queries[j][0]
+		to := queries[j][1]
+
+		output[j] = sumArray[to] - sumArray[from-1]
+	}
+	return output
+}
+
+// Range queries  Building segment tree.
+func RangeQueriesSegmentTree(input []int, queries [][2]int) []int {
+	length := len(input)
+	segmentTreeSize := length * (length - 1)
+	segmentTree := make([]int, segmentTreeSize)
+	output := make([]int, len(queries))
+
+	buildSegmentTree(input, segmentTree, 0, 0, len(input))
+
+	for j := range queries {
+		from := queries[j][0]
+		to := queries[j][1]
+		output[j] = QuerySegemnt(segmentTree, from, to)
+	}
+	return output
+}
+
+func buildSegmentTree(input []int, segmentTree []int, sidx, left, right int) int {
+	if left == right {
+		segmentTree[left] = input[sidx]
+		return input[left]
+	} else {
+		mid := getMid(left, right)
+		leftSum := buildSegmentTree(input, segmentTree, sidx*2+1, left, mid)
+		rightSum := buildSegmentTree(input, segmentTree, sidx*2+2, mid+1, right)
+		segmentTree[sidx] = leftSum + rightSum
+		return segmentTree[sidx]
+	}
+}
+
+func QuerySegemnt(segement []int, from, to int) int {
+	return 0
+
+}
+
+func getMid(l, r int) int {
+	return l + (r-l)/2
 }

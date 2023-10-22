@@ -1,5 +1,5 @@
 // Package queue implements a queue.
-package queue
+package stackqueue
 
 import "container/list"
 
@@ -53,4 +53,26 @@ func (q *Queue) hasKey(key string) bool {
 }
 func (q *Queue) removeKey(key string) bool {
 	return true
+}
+
+/* Queue Problems */
+type LRUCache struct {
+	queue *Queue
+	Len   uint8
+}
+
+func NewLRUCache(len uint8) *LRUCache {
+	q := new(Queue)
+	return &LRUCache{queue: q, Len: len}
+}
+
+func (lru *LRUCache) getPage(key string) {
+	if lru.queue.hasKey(key) {
+		lru.queue.removeKey(key)
+	} else {
+		if lru.queue.Len() == lru.queue.Len() {
+			lru.queue.Pop()
+		}
+	}
+	lru.queue.Push(key)
 }

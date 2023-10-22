@@ -7,5 +7,5 @@ import (
 
 func TestFib(t *testing.T) {
 	input := 8
-	fmt.Printf("%v = %v ", input, fib(8))
+	fmt.Printf("%v = %v ", input, fibC(8))
 }

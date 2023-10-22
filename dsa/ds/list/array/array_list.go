@@ -47,8 +47,8 @@ func (l *List) Empty() bool {
 }
 
 func (l *List) Has(item types.Hashable) (has bool) {
-	for i := range l.list {
-		if l.list[i].Equals(item) {
+	for _, value := range l.list {
+		if value.Equals(item) {
 			return true
 		}
 	}

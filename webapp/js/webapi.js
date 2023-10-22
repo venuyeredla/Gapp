@@ -31,7 +31,6 @@ if(typeof(EventSource) !== "undefined") {
   }
 
 
-
   function clickCounter() {
     if (typeof(Storage) !== "undefined") {
       if (sessionStorage.clickcount) {
@@ -55,3 +54,22 @@ if (typeof(Storage) !== "undefined") {
   } else {
     document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
   }
+
+
+
+    var input = document.getElementById("input");
+    var output = document.getElementById("output");
+    var socket = new WebSocket("ws://localhost:2023/echo");
+
+    socket.onopen = function () {
+        output.innerHTML += "Status: Connected\n";
+    };
+
+    socket.onmessage = function (e) {
+        output.innerHTML += "Server: " + e.data + "\n";
+    };
+
+    function send() {
+        socket.send(input.value);
+        input.value = "";
+    }

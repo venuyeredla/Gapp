@@ -1,5 +1,5 @@
 // Package trie implements a trie.
-package trie
+package text
 
 type TrieNode struct {
 	char   rune

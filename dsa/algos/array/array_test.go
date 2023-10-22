@@ -2,26 +2,23 @@ package array
 
 import (
 	"fmt"
-	"math/rand"
 	"testing"
-	"time"
 )
 
-func AssertEquals(expected, actual []int, log bool) bool {
+func AssertEquals(expected, actual []int, log bool) (result bool, message string) {
 	if log {
 		Printable(expected, 0, len(expected)-1)
 		Printable(actual, 0, len(expected)-1)
 	}
-
 	if len(expected) == len(actual) {
 		for i := 0; i < len(expected); i++ {
 			if expected[i] != actual[i] {
-				return false
+				return false, "Failed at index - " + fmt.Sprint(i) + " Expected = " + fmt.Sprint(expected[i]) + " Actual = " + fmt.Sprint(actual[i])
 			}
 		}
-		return true
+		return true, ""
 	} else {
-		return false
+		return false, "Array lengths are unequal"
 	}
 }
 
@@ -30,41 +27,46 @@ func TestSorting(t *testing.T) {
 	//input := GenArray(5, 20)
 	input := []int{10, 80, 30, 90, 40, 50, 70}
 	expected := []int{10, 30, 40, 50, 70, 80, 90}
-	salgo := Merge
-	Sort(input, salgo)
-	if !AssertEquals(expected, input, false) {
-		t.Errorf("Sorting not right")
+	sortAlgos := []Salgo{Bubble, Selection, Insertion, Heap, Quick, Merge}
+	for _, algo := range sortAlgos {
+		copy := input[:]
+		Sort(copy, algo)
+		fmt.Printf("Using sort algorithm : %v \n", algo)
+		result, msg := AssertEquals(expected, copy, false)
+		if !result {
+			t.Errorf(msg)
+			break
+		}
 	}
 }
 
-func TestLinearSearch(t *testing.T) {
-	t.Skip()
+func TestArraySearch(t *testing.T) {
+	//t.Skip()
 	fmt.Println("Linear search")
-	randArray := GenArray(10, 50)
-	rand.Seed(time.Now().UnixMilli())
-	key := rand.Intn(20)
-
-	//found := linearSearch(randArray, key)
-	Sort(randArray, Insertion)
-	fmt.Println("Binary search")
-	found := binarySearch(randArray, key)
+	input := []int{10, 80, 30, 90, 40, 50, 70}
+	key := 30
+	found, index := linearSearch(input, key)
 	if !found {
-		t.Fatal("Input: ", randArray, " Key : ", key, found)
+		t.Errorf("Erron in linear search algorithm ")
 	} else {
-		fmt.Println("Input: ", randArray, " Key : ", key, found)
+		t.Logf("Found at index = %v", index)
 	}
-}
-
-func TestSubArrays(t *testing.T) {
-	arr := []int{1, 2, 3, 4, 5}
-	RSubArrays(arr, 0, 0, 5)
+	Sort(input, Bubble)
+	fmt.Println("Binary search")
+	found = binarySearch(input, key)
+	if !found {
+		t.Fatal("Input: ", input, " Key : ", key, found)
+	} else {
+		fmt.Println("Input: ", input, " Key : ", key, found)
+	}
 }
 
 func TestSubset(t *testing.T) {
-	arr := []int{1, 2, 3}
-	//combinations(arr, 1, 2)
-	//Subset(arr)
+	arr := []int{1, 2, 3, 4}
+	SubArraysR(arr, 0, 0, 4)
 	Permuations(arr, 0, len(arr))
+	Subset(arr)
+	//combinations(arr, 1, 2)
 }
 
 func TestLargest(t *testing.T) {
@@ -76,19 +78,21 @@ func TestMoveAllzeros(t *testing.T) {
 	arr := []int{1, 0, 2, 0, 0, 3}
 	expected := []int{1, 2, 3, 0, 0, 0}
 	MovallZeros(arr)
-	if !AssertEquals(expected, arr, false) {
-		t.Errorf("Sorting not right")
+	result, msg := AssertEquals(expected, arr, false)
+	if !result {
+		t.Errorf(msg)
 		t.Fail()
 	}
+
 }
 
 func TestRearrang(t *testing.T) {
 	arr := []int{-1, -1, 6, 1, 9, 3, 2, -1, 4, -1}
 	expected := []int{-1, 1, 2, 3, 4, -1, 6, -1, -1, 9}
-
 	Rearrange(arr)
-	if !AssertEquals(expected, arr, true) {
-		t.Errorf("Sorting not right")
+	result, msg := AssertEquals(expected, arr, false)
+	if !result {
+		t.Errorf(msg)
 		t.Fail()
 	}
 }
@@ -99,8 +103,6 @@ func TestKmost(t *testing.T) {
 }
 
 func TestRemoveDuplicates(t *testing.T) {
-
 	arr := []int{2, 3, 5, 5, 7, 11, 11, 11, 13}
 	removeDuplicates(arr)
-
 }

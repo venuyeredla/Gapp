@@ -21,7 +21,6 @@ Notes:
 1. Array problems has brute force approach.
 2. Instead of deleting consider rewriting.
 
-
 #Standard problems
 1. Even entries appears first.
 2. Partitionng array

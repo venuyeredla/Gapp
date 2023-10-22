@@ -1,13 +1,11 @@
-package stack
+package stackqueue
 
 import (
 	"fmt"
 	"testing"
 )
 
-const iterations = 1024
-
-func TestPushPop(t *testing.T) {
+func TestSPushPop(t *testing.T) {
 	fmt.Println("Running push operation")
 	s := new(Stack)
 	s.Init(iterations / 2)
@@ -17,7 +15,7 @@ func TestPushPop(t *testing.T) {
 	}
 
 	for i := iterations - 1; i >= 0; i-- {
-		testPop(t, s, i)
+		testPopS(t, s, i)
 	}
 }
 
@@ -34,7 +32,7 @@ func TestInitPushSmallestStack(t *testing.T) {
 
 	// Assert.
 	for i := 3; i >= 0; i-- {
-		testPop(t, s, i)
+		testPopS(t, s, i)
 	}
 }
 
@@ -55,7 +53,7 @@ func TestPeek(t *testing.T) {
 	testPeek(t, s, nil)
 }
 
-func TestLen(t *testing.T) {
+func TestSLen(t *testing.T) {
 	s := new(Stack)
 	s.Init(iterations / 4)
 
@@ -73,7 +71,7 @@ func TestLen(t *testing.T) {
 	}
 }
 
-func TestIsEmpty(t *testing.T) {
+func TestSIsEmpty(t *testing.T) {
 	s := new(Stack)
 	s.Init(2)
 
@@ -88,7 +86,7 @@ func TestIsEmpty(t *testing.T) {
 	}
 }
 
-func testPop(t *testing.T, s *Stack, e interface{}) {
+func testPopS(t *testing.T, s *Stack, e interface{}) {
 	if v := s.Pop(); v != e {
 		t.Errorf("Popping expected %v, got %v", e, v)
 	}
@@ -120,7 +118,7 @@ func BenchmarkPushResize(b *testing.B) {
 	}
 }
 
-func BenchmarkPop(b *testing.B) {
+func BenchmarkPopS(b *testing.B) {
 	s := new(Stack)
 	s.Init(b.N)
 
@@ -132,4 +130,20 @@ func BenchmarkPop(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		s.Pop()
 	}
+}
+
+/* stack problems test */
+
+func TestItoP(t *testing.T) {
+	//ItoP("a+b*c+d")
+
+	ItoP("a+b*(c^d-e)^(f+g*h)-i ")
+}
+
+func TestBalanced(t *testing.T) {
+	balanced := IsBalanced("[()]{}{[()()]()}")
+	if !balanced {
+		t.Fail()
+	}
+
 }

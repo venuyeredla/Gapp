@@ -1,7 +1,6 @@
 # JavascriptNotes
 1. Javascript single threaded, dynamically typed interpreted language. 
-2. Dom manipulation and event handling is the important aspect of language.
-
+2. Making HTTP reqeusts, Dom manipulation and event handling are the important aspects of language.
 
 Data types :
 Primitive: Boolean, Number,BigInt String, Null, Undefined, Symbol.
@@ -9,7 +8,7 @@ Abstract(Using new keyword) : Arrays, Objects, functions, Dates, Maths,
 Collections/Containers : Set, Map
 
 Array methods: array.sort(), shift,unshift, Slice(reading), Splice(Altering), push,pop,filter,includes
-String methods: substr(idx,number of chars),substring(idxs,idxe)
+String methods: substr(idx,number of chars),substring(start,end)
 
 
 # Creation of Objects
@@ -59,7 +58,7 @@ var object = new Person("Sudheer");`
 # Asynchronus event handling
   1. call back after event completed.
   2. Promises
-  3. async/wait
+  3. async/await
     "async and await make promises easier to write"
      async makes a function return a Promise
      await makes a function wait for a Promise
@@ -91,14 +90,40 @@ var object = new Person("Sudheer");`
     is a command for either libraray or browser for rendering element(process a request)
 
 
+# Frameworks / Libraryies
+  1. Angular 
+     is Framework with built-in form, state management for developing application from end to end. 
+     Uses Shadow dom concept for updating dom.
+     Two way data binding.
+  2. Reactjs : 
+     Library for only creating reusable compoents. For Networking and state management we need to use other libraries. 
+     One way data binding.
+
+
+
 # Template for Frameworks features
  1. Building single page application
  2. Routing for handling multiple views.
+    Angular : RouterModule
+    React : Reacat router module, 
+        <BrowserRouter>
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+        </BrowserRouter>
+
+        <Link to="/about">About</Link>
+
  2. HTTP API for hanlding communication with server. 
+    React : Axios library, React Query, Relay(production ready GraphQl Client)
+
  3. Data binding. i.e DOM manipulation
+      React : One way data bindng. Component => UI
+      Angular : Two way data binding, Component <=> UI
  4. Event handling - Event publishing ,propagation or delegation.
  5. Form validation
  6. Component library.
+
+
 
 
 # Nodejs

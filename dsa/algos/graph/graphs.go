@@ -1,7 +1,7 @@
 package graph
 
 import (
-	"Gapp/dsa/ds/queue"
+	"Gapp/dsa/ds/stackqueue"
 	"fmt"
 )
 
@@ -23,7 +23,7 @@ func NewGraph(noOfVertices int) *Graph {
 func (graph *Graph) BFS() {
 	var visited []bool
 	visited = make([]bool, graph.Size)
-	queue := queue.NewQueue()
+	queue := stackqueue.NewQueue()
 	queue.Push(graph.Vertices[0])
 	visited[0] = true
 

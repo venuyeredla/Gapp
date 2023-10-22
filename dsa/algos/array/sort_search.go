@@ -16,15 +16,13 @@ const (
 	Bucket
 )
 
-func linearSearch(input []int, key int) bool {
-	var contains bool = false
+func linearSearch(input []int, key int) (bool, int) {
 	for i := 0; i < len(input); i++ {
 		if input[i] == key {
-			contains = true
-			break
+			return true, i
 		}
 	}
-	return contains
+	return false, -1
 }
 
 func linearSearchR(input []int, lastIdx int, key int) int {
@@ -55,6 +53,7 @@ func binarySearch(input []int, key int) bool {
 	}
 
 }
+
 func binarySearchR(input []int, left int, right int, key int) bool {
 	if left < right {
 		m := left + ((right - left) / 2)

@@ -15,7 +15,6 @@ func (t *BinaryTree) BstPut(k types.Hashable, v interface{}) (updated bool) {
 	if updated {
 		t.count++
 	}
-
 	return updated
 }
 
