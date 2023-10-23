@@ -1,9 +1,5 @@
 package consts
 
-import (
-	"Gapp/dsa/ds/slice"
-)
-
 type Flag uint16
 
 const BLOCKSIZE = 4096
@@ -19,8 +15,3 @@ const (
 	LIST_CTRL
 	LIST_IDX
 )
-
-func AsFlag(bytes []byte) Flag {
-	back := slice.AsSlice(&bytes)
-	return *(*Flag)(back.Array)
-}

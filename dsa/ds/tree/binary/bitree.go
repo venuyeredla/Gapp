@@ -20,10 +20,10 @@ const (
 )
 
 const (
-	AVL TreeType = iota
-	RB
-	LEVEL
+	LEVEL TreeType = iota
+	AVL
 	BST
+	RB
 )
 
 const (
@@ -224,3 +224,434 @@ func ToNode(n1 interface{}) (n *BinaryNode) {
 	//node(n)
 	return
 }
+
+/* AVL tree insertion and deleetion */
+
+func (self *BinaryNode) AvlPut(key types.Hashable, value interface{}) (_ *BinaryNode, updated bool) {
+	if self == nil {
+		return &BinaryNode{key: key, value: value, height: 1}, false
+	}
+
+	if self.key.Equals(key) {
+		self.value = value
+		return self, true
+	}
+
+	if key.Less(self.key) {
+		self.left, updated = self.left.AvlPut(key, value)
+	} else {
+		self.right, updated = self.right.AvlPut(key, value)
+	}
+	if !updated {
+		self.height += 1
+		return self.balance(), updated
+	}
+	return self, updated
+}
+
+func (self *BinaryNode) AvlRemove(key types.Hashable) (_ *BinaryNode, value interface{}, err error) {
+	if self == nil {
+		return nil, nil, errors.NotFound(key)
+	}
+
+	if self.key.Equals(key) {
+		if self.left != nil && self.right != nil {
+			if self.left.Size() < self.right.Size() {
+				lmd := self.right.lmd()
+				lmd.left = self.left
+				return self.right, self.value, nil
+			} else {
+				rmd := self.left.rmd()
+				rmd.right = self.right
+				return self.left, self.value, nil
+			}
+		} else if self.left == nil {
+			return self.right, self.value, nil
+		} else if self.right == nil {
+			return self.left, self.value, nil
+		} else {
+			return nil, self.value, nil
+		}
+	}
+	if key.Less(self.key) {
+		self.left, value, err = self.left.AvlRemove(key)
+	} else {
+		self.right, value, err = self.right.AvlRemove(key)
+	}
+	if err != nil {
+		return self.balance(), value, err
+	}
+	return self, value, err
+}
+
+func (self *BinaryNode) pop_node(node *BinaryNode) *BinaryNode {
+	if node == nil {
+		panic("node can't be nil")
+	} else if node.left != nil && node.right != nil {
+		panic("node must not have both left and right")
+	}
+
+	if self == nil {
+		return nil
+	} else if self == node {
+		var n *BinaryNode
+		if node.left != nil {
+			n = node.left
+		} else if node.right != nil {
+			n = node.right
+		} else {
+			n = nil
+		}
+		node.left = nil
+		node.right = nil
+		return n
+	}
+
+	if node.key.Less(self.key) {
+		self.left = self.left.pop_node(node)
+	} else {
+		self.right = self.right.pop_node(node)
+	}
+
+	self.height = max(self.left.Height(), self.right.Height()) + 1
+	return self
+}
+
+func (self *BinaryNode) push_node(node *BinaryNode) *BinaryNode {
+	if node == nil {
+		panic("node can't be nil")
+	} else if node.left != nil || node.right != nil {
+		panic("node now be a leaf")
+	}
+
+	if self == nil {
+		node.height = 1
+		return node
+	} else if node.key.Less(self.key) {
+		self.left = self.left.push_node(node)
+	} else {
+		self.right = self.right.push_node(node)
+	}
+	self.height = max(self.left.Height(), self.right.Height()) + 1
+	return self
+}
+
+func (self *BinaryNode) rotate_right() *BinaryNode {
+	if self == nil {
+		return self
+	}
+	if self.left == nil {
+		return self
+	}
+	new_root := self.left.rmd()
+	self = self.pop_node(new_root)
+	new_root.left = self.left
+	new_root.right = self.right
+	self.left = nil
+	self.right = nil
+	return new_root.push_node(self)
+}
+
+func (self *BinaryNode) rotate_left() *BinaryNode {
+	if self == nil {
+		return self
+	}
+	if self.right == nil {
+		return self
+	}
+	new_root := self.right.lmd()
+	self = self.pop_node(new_root)
+	new_root.left = self.left
+	new_root.right = self.right
+	self.left = nil
+	self.right = nil
+	return new_root.push_node(self)
+}
+
+func (self *BinaryNode) balance() *BinaryNode {
+	if self == nil {
+		return self
+	}
+	for abs(self.left.Height()-self.right.Height()) > 2 {
+		if self.left.Height() > self.right.Height() {
+			self = self.rotate_right()
+		} else {
+			self = self.rotate_left()
+		}
+	}
+	return self
+}
+
+func (self *BinaryNode) Height() int {
+	if self == nil {
+		return 0
+	}
+	return self.height
+}
+
+func (self *BinaryNode) Size() int {
+	if self == nil {
+		return 0
+	}
+	return 1 + self.left.Size() + self.right.Size()
+}
+
+func (self *BinaryNode) Left() types.BinaryTreeNode {
+	if self.left == nil {
+		return nil
+	}
+	return self.left
+}
+
+func (self *BinaryNode) Right() types.BinaryTreeNode {
+	if self.right == nil {
+		return nil
+	}
+	return self.right
+}
+
+func (self *BinaryNode) _md(side func(*BinaryNode) *BinaryNode) *BinaryNode {
+	if self == nil {
+		return nil
+	} else if side(self) != nil {
+		return side(self)._md(side)
+	} else {
+		return self
+	}
+}
+
+func (self *BinaryNode) lmd() *BinaryNode {
+	return self._md(func(node *BinaryNode) *BinaryNode { return node.left })
+}
+
+func (self *BinaryNode) rmd() *BinaryNode {
+	return self._md(func(node *BinaryNode) *BinaryNode { return node.right })
+}
+
+func abs(i int) int {
+	if i < 0 {
+		return -i
+	}
+	return i
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+/* AVL tree insertion and deleetion */
+
+/* RB tree insertion and deleetion */
+/*
+Properties.
+1. Every nodes is either red or black
+2. Root is always Black
+3. A red node doesn't have red child/parent
+3. All nil nodes considered as leafs and need to be blacks
+4. Every path from a given node to any of it's descendents nil(leaves) has same no of black nodes.
+*/
+
+// While inserting a key we use two tools for balancing tree.
+// 1. Recoloring and rotation
+func RBPut(n *BinaryNode, key types.Hashable) (root *BinaryNode) {
+
+	if n == nil {
+		return &BinaryNode{key: key}
+	} else if key.Less(n.key) {
+		n.left = RBPut(n.left, key)
+		n.left.parent = n
+
+	} else {
+		n.right = RBPut(n.right, key)
+		n.right.parent = n
+	}
+
+	return nil
+}
+
+func RBDelete(n *BinaryNode) {
+
+}
+
+/* RB tree insertion and deleetion */
+
+/* BST tree insertion and deleetion */
+
+// Insert adds a given key+value to the tree and returns true if it was added.
+// Average: O(log(n)) Worst: O(n)
+
+func NewBST() *BinaryTree {
+	return &BinaryTree{treeType: BST}
+}
+
+func (t *BinaryTree) BstPut(k types.Hashable, v interface{}) (updated bool) {
+	t.root, updated = t.root.BstPut(k, v)
+	if updated {
+		t.count++
+	}
+	return updated
+}
+
+// insert recusively adds a key+value in the tree.
+func (n *BinaryNode) BstPut(k types.Hashable, v interface{}) (r *BinaryNode, added bool) {
+	if r = n; n == nil {
+		// keep track of how many elements we have in the tree
+		// to optimize the channel length during traversal
+		r = &BinaryNode{key: k, value: v}
+		added = true
+	} else if k.Less(n.key) {
+		r.left, added = n.left.BstPut(k, v)
+	} else if n.key.Less(k) {
+		r.right, added = n.right.BstPut(k, v)
+	}
+
+	return
+}
+
+// Delete removes a given key from the tree and returns true if it was removed.
+// Average: O(log(n)) Worst: O(n)
+func (t *BinaryTree) Delete(k types.Hashable) (deleted bool) {
+	n, deleted := delete(t.root, k)
+	if deleted {
+		// Handling the case of root deletion.
+		if t.root.key.Equals(k) {
+			t.root = n
+		}
+		t.count--
+	}
+
+	return deleted
+}
+
+// delete recursively deletes a key from the tree.
+func delete(n *BinaryNode, k types.Hashable) (r *BinaryNode, deleted bool) {
+	if r = n; n == nil {
+		return nil, false
+	}
+
+	if k.Less(n.key) {
+		r.left, deleted = delete(n.left, k)
+	} else if n.key.Less(k) {
+		r.right, deleted = delete(n.right, k)
+	} else {
+		if n.left != nil && n.right != nil {
+			// find the right most element in the left subtree
+			s := n.left
+			for s.right != nil {
+				s = s.right
+			}
+			r.key = s.key
+			r.value = s.value
+			r.left, deleted = delete(s, s.key)
+		} else if n.left != nil {
+			r = n.left
+			deleted = true
+		} else if n.right != nil {
+			r = n.right
+			deleted = true
+		} else {
+			r = nil
+			deleted = true
+		}
+	}
+
+	return
+}
+
+// Find returns the value found at the given key.
+// Average: O(log(n)) Worst: O(n)
+func (t *BinaryTree) Find(k types.Hashable) interface{} {
+	return find(t.root, k)
+}
+
+func find(n *BinaryNode, k types.Hashable) interface{} {
+	if n == nil {
+		return nil
+	}
+
+	if n.key.Equals(k) {
+		return n.value
+	} else if k.Less(n.key) {
+		return find(n.left, k)
+	} else if n.key.Less(k) {
+		return find(n.right, k)
+	}
+
+	return nil
+}
+
+// Clear removes all the nodes from the tree.
+// O(n)
+func (t *BinaryTree) Clear() {
+	t.root = clear(t.root)
+	t.count = 0
+}
+
+// clear recursively removes all the nodes.
+func clear(n *BinaryNode) *BinaryNode {
+	if n != nil {
+		n.left = clear(n.left)
+		n.right = clear(n.right)
+	}
+	n = nil
+
+	return n
+}
+
+// Traverse provides an iterator over the tree.
+// O(n)
+func (t *BinaryTree) Traverse(tt TraversalType) <-chan interface{} {
+	c := make(chan interface{}, t.count)
+	go func() {
+		switch tt {
+
+		case InOrder:
+			inOrder(t.root, c)
+		case PreOrder:
+			preOrder(t.root, c)
+		case PostOrder:
+			postOrder(t.root, c)
+		}
+		close(c)
+	}()
+
+	return c
+}
+
+// inOrder returns the left, parent, right nodes.
+func inOrder(n *BinaryNode, c chan interface{}) {
+	if n == nil {
+		return
+	}
+
+	inOrder(n.left, c)
+	c <- n.value
+	inOrder(n.right, c)
+}
+
+// preOrder returns the parent, left, right nodes.
+func preOrder(n *BinaryNode, c chan interface{}) {
+	if n == nil {
+		return
+	}
+
+	c <- n.value
+	preOrder(n.left, c)
+	preOrder(n.right, c)
+}
+
+// postOrder returns the left, right, parent nodes.
+func postOrder(n *BinaryNode, c chan interface{}) {
+	if n == nil {
+		return
+	}
+
+	postOrder(n.left, c)
+	postOrder(n.right, c)
+	c <- n.value
+}
+
+/* BST tree insertion and deleetion */
