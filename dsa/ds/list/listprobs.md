@@ -10,3 +10,4 @@ Use sentinel(dummy head)
 5. Remove duplicates form sorted list.
 6. Cyclic right shift
 7. Test for palindrome of list.
+8. Add list based integers.

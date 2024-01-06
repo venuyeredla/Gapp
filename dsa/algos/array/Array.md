@@ -1,25 +1,23 @@
 
 # Array Notes
-Array: Partioning(Quick sort), Sorting, Searching, Swapping, Rearrangement.
 
-Search for key
-Kth Min and max elements. (Complete sorting is not needed. So Heaps/priority queues are best)
+1. Rewriting array and using two pointer approach. Instead of deleting consider rewriting.
+2. Partioning(Quick sort), Sorting, Searching, Swapping, Rearrangement.
+3. Array problems has brute force approach.
 
-Range sum queries.
-Datastructures : Prfix sum array, Heaps and segment trees, Binary indexed Tree.
+# Problem types.
+1. Search for key
+2. Kth Min and max elements. (Partial sorting or Heaps/priority queues are best)
+3. Sub array :
+      Max/Min sum sub array problems
+      Kth min & max sum sub array (Using heaps)
 
-Equal to a value pair.
+4. Subset problems : Min/Max products subsets (Using greedy.)
 
-Sub array :
-Max/Min sum sub array problems
-Kth min & max sum sub array (Using heaps)
-
-Subset problems
-Min/Max products subsets (Using greedy.)
-
-Notes: 
-1. Array problems has brute force approach.
-2. Instead of deleting consider rewriting.
+4. Range sum queries.
+   Datastructures : Prfix sum array, Heaps and segment trees, Binary indexed Tree.
+5. Sum problems 
+    x+y= Z, x+y+z=k
 
 #Standard problems
 1. Even entries appears first.
@@ -37,7 +35,4 @@ Multi dimensional arrays
 2d,
 
 Multiplication,Rotation etc...
-
-
-
 

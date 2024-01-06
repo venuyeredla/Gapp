@@ -5,7 +5,7 @@ import (
 )
 
 /*
-  Negative numbers are stored as compliment of 2. Negative bit string cacat(1,pow(2,N-1)-k)
+  Negative numbers are stored as compliment of 2. Negative bit string cancat(1,pow(2,N-1)-k)
  Operatos : &(AND) , |(OR) , ^(XOR), ~(Negation)
  let x => x^x =0
  Let x,y,z numbers   x^y=z  => z^x=y or z^y=x
@@ -33,6 +33,7 @@ Note :: odd or even number of times counting can be done with xor operator
 6. Reverse bits.
 7. Number with same weight, Number of one's in binary string.
 8. Compute x*y or x/y without using arthmetic operators.
+
 */
 
 func flip(x byte) byte {

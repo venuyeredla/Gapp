@@ -1,7 +1,6 @@
 package maths
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -22,16 +21,10 @@ func TestGcd(t *testing.T) {
 	}
 }
 
-func TestFactors(t *testing.T) {
-	factors := FactorsArr(12)
-	fmt.Println(factors)
-	PrimeFactors(32)
-	fmt.Printf("\nFibNth(%v) = %v ", 10, FibNth(10))
-}
-
 func TestSummations(t *testing.T) {
 	//fmt.Printf("\n Sum1toN(%v) = %v ", 10, Sum1toN(10))
 	Sum1toN(10)
 	SumOfSquares(4)
 	SumOfGeometric(1, 2, 3)
+
 }

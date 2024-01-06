@@ -1,6 +1,7 @@
 # Stack
 1. Last in first out access.
 2. Can be implemented by using Arrays or lists.
+3. Can used to eliminate recursion.
 
 
 # Problems
@@ -21,4 +22,3 @@
 1. Implment circular queue.
 2. Implement Queue using two stacks.
 3. Implment Queue with Max API.
-

@@ -19,3 +19,25 @@ func fibC(n int) int {
 	}
 	return fib(n, cache)
 }
+
+func FibSeries(size int) []int {
+	// Count series from zero.
+	fib := make([]int, size)
+	var i int = 0
+	fib[0] = 0
+	fib[1] = 1
+	for i < size {
+		fib[i] = fib[i-1] + fib[i-2]
+		i++
+	}
+	return fib
+}
+
+func FibNth(n int) int {
+	if n < 2 {
+		return n
+	} else {
+		return FibNth(n-2) + FibNth(n-1)
+	}
+
+}

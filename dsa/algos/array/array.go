@@ -1,83 +1,287 @@
 package array
 
 import (
+	"Gapp/dsa/util"
 	"fmt"
 	"math"
-	"math/rand"
 	"sort"
 	"strings"
-	"time"
 )
 
-func GenArray(size int, max int) []int {
-	// balance := [5]float32{1000.0, 2.0, 3.4, 7.0, 50.0}  // static arry with intialization of values.
-	//var generated [5]int // fixed array size declaration
-	var generated []int //If size don't mentined it will become slice. Before using slice need to intilaize.
-	rand.Seed(time.Now().UnixMilli())
-	generated = make([]int, size)
-	for i := 0; i < size; i++ {
-		generated[i] = rand.Intn(20)
+type Salgo byte
+
+const (
+	Bubble Salgo = iota
+	Selection
+	Insertion
+	Heap
+	Quick
+	Merge
+	Counting
+	Radix
+	Bucket
+)
+
+func linearSearch(input []int, key int) (bool, int) {
+	for i := 0; i < len(input); i++ {
+		if input[i] == key {
+			return true, i
+		}
 	}
-	return generated
+	return false, -1
 }
 
-func Printable(arr []int, l, r int) string {
-	if l <= r {
-		var sb strings.Builder
-		sb.WriteString("{")
-		for k := l; k <= r; k++ {
-			fmt.Fprintf(&sb, "%d", arr[k])
-			if k < r {
-				sb.WriteString(",")
+func linearSearchR(input []int, idx int, key int) int {
+	if idx == -1 {
+		return -1
+	} else if input[idx] == key {
+		return idx
+	} else {
+		return linearSearchR(input, idx-1, key)
+	}
+}
+
+func BinarySearch(input []int, key int) (bool, int) {
+	l := 0
+	r := len(input)
+	for l < r {
+		m := l + ((r - l) / 2)
+		if key > input[m] {
+			l = m + 1
+		} else {
+			r = m
+		}
+	}
+	if input[l] == key {
+		return true, l
+	} else {
+		return false, -1
+	}
+
+}
+
+func binarySearchR(input []int, left int, right int, key int) bool {
+	if left < right {
+		m := left + ((right - left) / 2)
+		if input[m] == key {
+			return true
+		} else if key > input[m] {
+			binarySearchR(input, m+1, right, key)
+		} else {
+			binarySearchR(input, m+1, right, key)
+		}
+	}
+	return false
+}
+
+// arrange numbers in ai<aj  where i<j
+func Sort(input []int, algo Salgo) {
+	length := len(input)
+	switch algo {
+	case Bubble:
+		for i := 0; i < length; i++ {
+			for j := 0; j < length-i-1; j++ {
+				if input[j] > input[j+1] {
+					Swap(input, j, j+1)
+				}
 			}
 		}
-		sb.WriteString("}")
-		s := sb.String()
-		fmt.Println(s)
-		return s
+		break
+	case Selection:
+		for i := 0; i < length; i++ {
+			minIdx := i
+			for j := i + 1; j < length; j++ {
+				if input[minIdx] > input[j] {
+					minIdx = j
+				}
+			}
+			if minIdx != i {
+				Swap(input, minIdx, i)
+			}
+		}
+		break
+	case Insertion:
+		// {10,30,40,50,70,80,90}
+		// {10,30,30,40,40,50,70}
+		for i := 1; i < len(input); i++ {
+			j := i - 1
+			for j >= 0 && input[i] < input[j] {
+				j--
+			}
+			j++
+			//Copy empty j by moving elements to
+			if j != i {
+				temp := input[i]
+				for k := i - 1; k >= j; k-- {
+					input[k+1] = input[k]
+				}
+				input[j] = temp
+			}
+		}
+		break
+	case Heap:
+		break
+
+	case Quick:
+		QuickSort(input, 0, (len(input) - 1))
+		break
+
+	case Merge:
+		MergSort(input, 0, length-1)
+		break
+
 	}
-	return ""
+
 }
 
-// Size=(n *(n+1))/2
-func SubArraysR(arr []int, l, r, n int) {
-	if r < n {
-		Printable(arr, l, r)
-		SubArraysR(arr, l, r+1, n)
-		if r+1 == n && (l+1) < n {
-			SubArraysR(arr, l+1, l+1, n)
+func QuickSort(input []int, left, right int) {
+	if left < right {
+		pivot := quickPartition(input, left, right)
+
+		fmt.Printf("Left=[%v, %v], Right=[%v,%v] \n", left, pivot-1, pivot+1, right)
+		QuickSort(input, left, pivot-1)
+		QuickSort(input, pivot+1, right)
+	}
+
+}
+
+func quickPartition(input []int, left, right int) int {
+	pivot := input[right]
+	i := left - 1
+	for j := left; j < right; j++ {
+		if input[j] < pivot {
+			i = i + 1
+			Swap(input, i, j)
 		}
 	}
+	Swap(input, i+1, right)
+	return (i + 1)
 }
 
-// Backtracking algorithm
-func Permuations(arr []int, left, right int) {
-	if left == right {
-		Printable(arr, 0, right-1)
-	} else {
-		for i := left; i < right; i++ {
-			Swap(arr, i, left)
-			Permuations(arr, left+1, right)
-			Swap(arr, left, i)
-		}
+func Swap(input []int, i, j int) {
+	temp := input[i]
+	input[i] = input[j]
+	input[j] = temp
+}
+
+// Main function that sorts arr[l..r] using
+// merge()
+func MergSort(arr []int, l, r int) {
+	if l < r {
+		// Find the middle point
+		m := l + (r-l)/2
+
+		// Sort first and second halves
+		MergSort(arr, l, m)
+		MergSort(arr, m+1, r)
+
+		// Merge the sorted halves
+		merge(arr, l, m, r)
 	}
 }
 
-func Subset(arr []int) {
+func merge(arr []int, l, m, r int) {
+	// Find sizes of two subarrays to be merged
+	n1 := m - l + 1
+	n2 := r - m
+
+	/* Create temp arrays */
+	var L []int = make([]int, n1)
+	var R []int = make([]int, n2)
+
+	/*Copy data to temp arrays*/
+	for i := 0; i < n1; i++ {
+		L[i] = arr[l+i]
+	}
+	for j := 0; j < n2; j++ {
+		R[j] = arr[m+1+j]
+	}
+
+	/* Merge the temp arrays */
+
+	// Initial indexes of first and second subarrays
+	i := 0
+	j := 0
+
+	// Initial index of merged subarray array
+	k := l
+	for i < n1 && j < n2 {
+		if L[i] <= R[j] {
+			arr[k] = L[i]
+			i++
+		} else {
+			arr[k] = R[j]
+			j++
+		}
+		k++
+	}
+
+	/* Copy remaining elements of L[] if any */
+	for i < n1 {
+		arr[k] = L[i]
+		i++
+		k++
+	}
+
+	/* Copy remaining elements of R[] if any */
+	for j < n2 {
+		arr[k] = R[j]
+		j++
+		k++
+	}
+}
+
+func Subset(arr []int) []string {
 	nofSubsets := int(math.Pow(2, float64(len(arr))))
+	collector := util.StringCollector(nofSubsets)
 	for idx := 0; idx < nofSubsets; idx++ {
 		i := -1
-		fmt.Printf("{")
+		var sb strings.Builder
+		sb.WriteString("{")
 		num := idx
 		for num > 0 {
 			bit := num & 1
 			i += 1
 			if bit == 1 {
-				fmt.Printf("%v,", arr[i])
+				fmt.Fprintf(&sb, "%d", arr[i])
 			}
 			num = num >> 1
 		}
-		fmt.Printf("}\n")
+		sb.WriteString("}")
+		collector.Append(sb.String())
+	}
+
+	return collector.Elements
+}
+
+// Sets containing element and not containg element.
+// // 1,2,3 -> 1,2,3
+//     and  2,3
+
+func SubsetBackTracking(arr []int, l, r int) {
+	if len(arr) == 1 {
+		util.Printable(arr, l, r)
+	} else if len(arr) > 1 {
+		util.Printable(arr, l, r)
+		subsize := r - l
+		for i := l + 1; i < len(arr); i++ {
+			include := make([]int, 0, subsize)
+			for j := l; j < len(arr); j++ {
+				if i != j {
+					include = append(include, arr[j])
+				}
+			}
+			//	fmt.Printf("include =%v", include)
+
+			SubsetBackTracking(include, 0, len(include)-1)
+		}
+
+		exclude := make([]int, subsize, subsize)
+		copy(exclude, arr[l+1:])
+		if len(exclude) > 1 {
+			//fmt.Printf("Exclude =%v", exclude)
+			SubsetBackTracking(exclude, 0, len(exclude)-1)
+		}
 	}
 }
 
@@ -93,32 +297,9 @@ func combinations(arr []int, to, size int) {
 		selection[0] = arr[i]
 		for j := i + 1; j < len(arr); j++ {
 			selection[1] = arr[j]
-			Printable(selection[:], 0, 1)
+			util.Printable(selection[:], 0, 1)
 		}
 	}
-}
-
-func LargestSumContiguous(a []int) {
-	//StringJoiner stringJoiner=new StringJoiner(", ");
-	Printable(a, 0, len(a)-1)
-	sum := 0
-	fidx := 0
-	toIdx := 0
-	maxSum := 0
-	for j := 0; j < len(a); j++ {
-		sum = sum + a[j]
-		if maxSum <= sum {
-			maxSum = sum
-			toIdx = j
-		}
-		if sum < 0 {
-			sum = 0
-			fidx = j
-		}
-		//stringJoiner.add(sum + "")
-	}
-	//System.out.print(stringJoiner.toString())
-	fmt.Printf(" => {%v,%v = %v} \n", fidx, toIdx, maxSum)
 }
 
 // Partion negative and positive numbers
@@ -318,4 +499,14 @@ func QuerySegemnt(segement []int, from, to int) int {
 
 func getMid(l, r int) int {
 	return l + (r-l)/2
+}
+
+/*
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+*/
+func tripleSum(nums []int) {
+
+	sort.Ints(nums)
+
 }

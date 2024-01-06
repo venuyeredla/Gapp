@@ -51,5 +51,3 @@ Representation : Adjacency List,  Adjacency Matix, Incident Matrix.
 Spanning Tree : Let G be a simple graph. A spanning tree of G is a subgraph of G that is a tree containing every vertex of G.
 
 Minimum Spanning Tree : A minimum spanning tree in a connected weighted graph is a spanning tree that has the smallest possible sum of weights of its edges.
-
-
