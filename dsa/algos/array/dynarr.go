@@ -5,10 +5,17 @@ import (
 	"fmt"
 )
 
-// Subset sum problem is to find subset of elements that are selected from a given set whose sum adds up to a given number K.
+/*
+	Subset sum problem is to find subset of elements that are selected from a given set whose sum adds up to a given number K.
+
+	Approach :
+		1. Brute forece. Genereate all subsets. loop for subsetsum. Recursion.
+		2. Dynamic programming
+
 // S,  s={a  a S  }  Sum(s) =K
 
-// 3,2,7,1  = Sum =6
+3,2,7,1  = Sum =6
+*/
 func SubsetSum(A []int, sum int) bool {
 	if sum == 0 {
 		return true
@@ -59,7 +66,13 @@ func SubsetSumD(A []int, sum int) bool {
 
 }
 
-func LargestSumContiguous(a []int) {
+/*
+Approach :
+ 1. Bruteforce : n*(n+1)/2  => SumRange(i,j) - Involves recompuations (Dynamic programming)
+ 2. Prefix sum or segement or BIT. O(n,2)
+ 3. Dynamic programming
+*/
+func LargestSumSubArray(a []int) {
 	//StringJoiner stringJoiner=new StringJoiner(", ");
 	util.Printable(a, 0, len(a)-1)
 	sum := 0
@@ -85,13 +98,57 @@ func LargestSumContiguous(a []int) {
 /*
 Input: arr[] = {3, 10, 2, 1, 20} => 3, 10, 20
 
-	Including excluding princieple
+	Approach :
+	1. This is combination problem and for each elements try find lenght by including or excluding next element.
+	Bottom up apporoach.
+	1. len(A)==cidx return 0;
+	2. if A[cidx] >= A[lidx]  return a+lis(A, cidx+1, cix)
+	3. If not equal.
+		a. Keep lidx as it is and increas cidx  -- Exclusion.
+		b. Assuming this could other sequnce minimum element and start counting again.
+
+
+	Approach - 2.
+
+	Dynamic proramming.
 
 Output: 3
 */
-func longIncreasingSubseq(A []int) int {
+func longIncreasingSubseq(A []int, cidx, lastidx int) int {
+	if len(A) == cidx { // one element case;
+		return 0
+	}
+	if cidx == lastidx && len(A) == cidx+1 {
+		return 1
+	}
+	includingCount := 0
+	if A[cidx] >= A[lastidx] {
+		return 1 + longIncreasingSubseq(A, cidx+1, cidx)
+	} else {
+		longIncreasingSubseq(A, cidx+1, cidx)
+	}
+	excludingCount := longIncreasingSubseq(A, cidx, cidx)
+	// Max(exclusion, inclusion)
+	return util.MaxOf(includingCount, excludingCount)
+}
 
-	return 0
+/*
+	 Input: arr[] = {3, 10, 2, 1, 20} => 3, 10, 20
+					 {1, 2, 1, 1, 3}
+*/
+func LISD(A []int) int {
+	solution := make([]int, len(A))
+	lidx := 0
+	solution[0] = 1
+	for i := 1; i < len(A); i++ {
+		if A[i] >= A[lidx] {
+			solution[i] = 1 + solution[lidx]
+			lidx = i
+		} else {
+
+		}
+	}
+	return A[len(A)-1]
 }
 
 /*

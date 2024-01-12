@@ -54,11 +54,6 @@ func TestSubset2(t *testing.T) {
 	SubsetBackTracking(arr, 0, 2)
 }
 
-func TestLargest(t *testing.T) {
-	arr := []int{2, -3, 4, -1, -2, 1, 5, -3}
-	LargestSumContiguous(arr)
-}
-
 func TestMoveAllzeros(t *testing.T) {
 	arr := []int{1, 0, 2, 0, 0, 3}
 	expected := []int{1, 2, 3, 0, 0, 0}

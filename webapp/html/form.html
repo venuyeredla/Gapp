@@ -1,3 +1,4 @@
+<h1>Gneareting form </h1>
 {{if .Success}}
     <h1>Thanks for your message!</h1>
 {{else}}
@@ -12,3 +13,14 @@
         <input type="submit">
     </form>
 {{end}}
+
+<h1>{{.Todo.PageTitle}}</h1>
+<ul>
+    {{range .Todo.Todos}}
+        {{if .Done}}
+            <li class="done">{{.Title}}</li>
+        {{else}}
+            <li>{{.Title}}</li>
+        {{end}}
+    {{end}}
+</ul>

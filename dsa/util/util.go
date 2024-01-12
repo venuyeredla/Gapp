@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"strings"
 	"time"
@@ -60,4 +61,16 @@ func GetMatrix(rows, cols int) [][]int {
 		sm[i] = make([]int, cols)
 	}
 	return sm
+}
+
+func Minimum(i, j, k int) int {
+	return int(math.Min(float64(math.Min(float64(i), float64(j))), float64(k)))
+}
+
+func MaxOf(i, j int) int {
+	if i >= j {
+		return i
+	} else {
+		return j
+	}
 }

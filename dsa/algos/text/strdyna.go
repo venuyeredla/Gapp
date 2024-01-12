@@ -2,7 +2,6 @@ package text
 
 import (
 	"Gapp/dsa/util"
-	"math"
 )
 
 /*
@@ -25,7 +24,7 @@ func ediDistance(s1, s2 string) int {
 	d := ediDistance(s1, s2[1:])
 	i := ediDistance(s1[1:], s2)
 
-	return 1 + getMin(d, u, i)
+	return 1 + util.Minimum(d, u, i)
 }
 
 func ediDistanceD(s1, s2 string) int {
@@ -48,20 +47,12 @@ func ediDistanceD(s1, s2 string) int {
 			if s2[i-1] == s1[j-1] {
 				sm[i][j] = sm[i-1][j-1]
 			} else {
-				sm[i][j] = 1 + getMin(sm[i-1][j-1], sm[i-1][j], sm[i][j-1])
+				sm[i][j] = 1 + util.Minimum(sm[i-1][j-1], sm[i-1][j], sm[i][j-1])
 			}
 		}
 	}
 
 	return sm[x][y]
-}
-
-func getMin(i, j, k int) int {
-	return int(math.Min(float64(math.Min(float64(i), float64(j))), float64(k)))
-}
-
-func getMax(i, j int) int {
-	return int(float64(math.Max(float64(i), float64(j))))
 }
 
 /* Longest common subsequence
@@ -82,7 +73,7 @@ func Lcs(s1, s2 string) int {
 	if s1[0] == s2[0] {
 		return 1 + Lcs(s1[1:], s2[1:])
 	} else {
-		lcs := getMax(Lcs(s1[1:], s2), Lcs(s1, s2[1:]))
+		lcs := util.MaxOf(Lcs(s1[1:], s2), Lcs(s1, s2[1:]))
 		return lcs
 	}
 }
@@ -101,7 +92,7 @@ func Lrs(s string, m, n int) int {
 	if s[m] == s[n] && m != n {
 		return 1 + Lrs(s, m-1, n-1)
 	} else {
-		lcs := getMax(Lrs(s, m-1, n), Lrs(s, m, n-1))
+		lcs := util.MaxOf(Lrs(s, m-1, n), Lrs(s, m, n-1))
 		return lcs
 	}
 }
@@ -126,7 +117,7 @@ func LcsD(s1, s2 string) int {
 			if s2[i-1] == s1[j-1] {
 				sm[i][j] = 1 + sm[i-1][j-1]
 			} else {
-				sm[i][j] = getMax(sm[i-1][j], sm[i][j-1])
+				sm[i][j] = util.MaxOf(sm[i-1][j], sm[i][j-1])
 			}
 		}
 	}
@@ -159,7 +150,7 @@ func LpsR(s string, l, r int) int {
 	if s[l] == s[r] {
 		return LpsR(s, l+1, r-1) + 2
 	}
-	return getMax(LpsR(s, l+1, r), LpsR(s, l, r-1))
+	return util.MaxOf(LpsR(s, l+1, r), LpsR(s, l, r-1))
 }
 
 /*
@@ -186,7 +177,7 @@ func LpsD(s string) int {
 			} else if s[i] == s[j-1] {
 				sm[i][j] = 2
 			} else {
-				sm[i][j] = getMax(sm[i+1][j-1], sm[i+1][j-1])
+				sm[i][j] = util.MaxOf(sm[i+1][j-1], sm[i+1][j-1])
 			}
 		}
 	}
