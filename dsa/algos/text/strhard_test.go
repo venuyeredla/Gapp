@@ -6,11 +6,9 @@ import (
 )
 
 func TestTextJustify(t *testing.T) {
-
-	words := []string{"This", "is", "an", "example", "of", "text", "justification."}
+	words := []string{"What", "must", "be", "acknowledgment", "shall", "be"}
 	maxWidth := 16
-
 	for _, val := range TextJustify(words, maxWidth) {
-		fmt.Println(val)
+		fmt.Printf("% v  -- %v\n", val, len(val))
 	}
 }

@@ -86,3 +86,11 @@ func TestRemoveDuplicates(t *testing.T) {
 	arr := []int{2, 3, 5, 5, 7, 11, 11, 11, 13}
 	removeDuplicates(arr)
 }
+
+func TestRotation(t *testing.T) {
+	/*arr := []int{1, 2, 3, 4, 5, 6, 7}
+	Rotation(arr, 3)
+	fmt.Println(arr) */
+	arr := []int{2, 0}
+	Jump(arr)
+}

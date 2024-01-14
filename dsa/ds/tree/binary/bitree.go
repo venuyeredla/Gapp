@@ -7,38 +7,6 @@ import (
 	"Gapp/dsa/ds/types"
 )
 
-type COLOR uint
-type TreeType uint
-
-// TraversalType represents one of the three know traversals.
-type TraversalType int
-
-const (
-	InOrder TraversalType = iota
-	PreOrder
-	PostOrder
-)
-
-const (
-	LEVEL TreeType = iota
-	AVL
-	BST
-	RB
-)
-
-const (
-	RED COLOR = iota
-	BLACK
-)
-
-type BinaryNode struct {
-	key                 types.Hashable
-	value               interface{}
-	parent, left, right *BinaryNode
-	height              int   //For avl tree
-	color               COLOR // For redblack tree
-}
-
 type BinaryTree struct {
 	root     *BinaryNode
 	treeType TreeType
@@ -607,7 +575,6 @@ func (t *BinaryTree) Traverse(tt TraversalType) <-chan interface{} {
 	c := make(chan interface{}, t.count)
 	go func() {
 		switch tt {
-
 		case InOrder:
 			inOrder(t.root, c)
 		case PreOrder:
@@ -617,7 +584,6 @@ func (t *BinaryTree) Traverse(tt TraversalType) <-chan interface{} {
 		}
 		close(c)
 	}()
-
 	return c
 }
 

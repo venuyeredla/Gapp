@@ -510,3 +510,61 @@ func tripleSum(nums []int) {
 	sort.Ints(nums)
 
 }
+
+/*
+
+	 {1, 2, 3, 4, 5, 6, 7}
+k=3, {5, 6, 7, 1, 2, 3, 4}
+k=2, {6, 7, 1, 2, 3, 4, 5}
+k=1, {7, 1, 2, 3, 4, 5, 6}
+*/
+
+func Rotation(nums []int, k int) {
+	l := 0
+	r := len(nums) - 1 - k
+	for l < r {
+		nums[l], nums[r] = nums[r], nums[l]
+		l++
+		r--
+	}
+	l = len(nums) - k
+	r = len(nums) - 1
+	for l < r {
+		nums[l], nums[r] = nums[r], nums[l]
+		l++
+		r--
+	}
+	l = 0
+	r = len(nums) - 1
+	for l < r {
+		nums[l], nums[r] = nums[r], nums[l]
+		l++
+		r--
+	}
+
+}
+
+// {2,3,1,1,4}
+func Jump(nums []int) bool {
+	lidx := len(nums) - 1
+	if lidx == -1 {
+		return false
+	}
+	if lidx == 0 {
+		return true
+	}
+
+	temp := make([]bool, len(nums))
+	END := lidx
+	for i := lidx - 1; i >= 0; i-- {
+		maxJupms := nums[i]
+		for k := maxJupms; k > 0; k-- {
+			if i+k <= END {
+				if i+k == END || temp[i+k] == true {
+					temp[i] = true
+				}
+			}
+		}
+	}
+	return temp[0]
+}

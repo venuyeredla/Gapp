@@ -6,6 +6,13 @@ import (
 	"sync"
 )
 
+type worker struct {
+	in       chan func()
+	wg       *sync.WaitGroup
+	workin   *int
+	workCond *sync.Cond
+}
+
 type Pool struct {
 	workers  []*worker
 	wg       sync.WaitGroup
@@ -95,13 +102,6 @@ func (p *Pool) Do(f func()) error {
 	}
 	p.workers[offset].in <- f
 	return nil
-}
-
-type worker struct {
-	in       chan func()
-	wg       *sync.WaitGroup
-	workin   *int
-	workCond *sync.Cond
 }
 
 func (w *worker) work() {
