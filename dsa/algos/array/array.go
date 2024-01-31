@@ -22,28 +22,8 @@ const (
 	Bucket
 )
 
-func linearSearch(input []int, key int) (bool, int) {
-	for i := 0; i < len(input); i++ {
-		if input[i] == key {
-			return true, i
-		}
-	}
-	return false, -1
-}
-
-func linearSearchR(input []int, idx int, key int) int {
-	if idx == -1 {
-		return -1
-	} else if input[idx] == key {
-		return idx
-	} else {
-		return linearSearchR(input, idx-1, key)
-	}
-}
-
 func BinarySearch(input []int, key int) (bool, int) {
-	l := 0
-	r := len(input)
+	l, r := 0, len(input)
 	for l < r {
 		m := l + ((r - l) / 2)
 		if key > input[m] {
@@ -57,7 +37,6 @@ func BinarySearch(input []int, key int) (bool, int) {
 	} else {
 		return false, -1
 	}
-
 }
 
 func binarySearchR(input []int, left int, right int, key int) bool {
@@ -68,7 +47,7 @@ func binarySearchR(input []int, left int, right int, key int) bool {
 		} else if key > input[m] {
 			binarySearchR(input, m+1, right, key)
 		} else {
-			binarySearchR(input, m+1, right, key)
+			binarySearchR(input, left, m, key)
 		}
 	}
 	return false
@@ -567,4 +546,34 @@ func Jump(nums []int) bool {
 		}
 	}
 	return temp[0]
+}
+
+func Dummy(nums1 []int, nums2 []int) float64 {
+	last1, last2, sum := 0, 0, 0
+	len1, len2 := len(nums1), len(nums2)
+	if len1 > 0 && len2 > 0 {
+		last1 = nums1[len1-1]
+		last2 = nums2[len2-1]
+		if last1 > last2 {
+			sum = (last1 * (last1 + 1)) / 2
+		} else {
+			sum = (last2 * (last2 + 1)) / 2
+		}
+		return float64(sum) / float64(len1+len2)
+	} else if len(nums1) > 0 {
+		if (len1) == 1 {
+			return float64(nums1[0])
+		}
+		last1 = nums1[len1-1]
+		sum = (last1 * (last1 + 1)) / 2
+		return float64(sum) / float64(len1)
+	} else if len(nums2) > 0 {
+		if (len2) == 1 {
+			return float64(nums2[0])
+		}
+		last2 = nums2[len2-1]
+		sum = (last2 * (last2 + 1)) / 2
+		return float64(sum) / float64(len2)
+	}
+	return float64(0)
 }

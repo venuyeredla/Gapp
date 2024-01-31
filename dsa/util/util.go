@@ -74,3 +74,11 @@ func MaxOf(i, j int) int {
 		return j
 	}
 }
+
+func Min(i, j int) int {
+	if i < j {
+		return i
+	} else {
+		return j
+	}
+}

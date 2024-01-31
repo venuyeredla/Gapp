@@ -13,7 +13,7 @@ type StatiContent struct {
 func (sc *StatiContent) Preprocess() {
 	sc.TemplateMap = make(map[string]*template.Template)
 	//sc.TemplateMap["todo"] = template.Must(template.ParseFiles("webapp/html/layout.html"))
-	sc.TemplateMap["formtmpl"] = template.Must(template.ParseFiles("webapp/html/form.html"))
+	sc.TemplateMap["formtmpl"] = template.Must(template.ParseFiles("wstatic/form.html"))
 }
 
 func (sc *StatiContent) GenrateForm(w http.ResponseWriter, r *http.Request) {

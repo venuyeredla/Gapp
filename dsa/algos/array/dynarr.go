@@ -92,7 +92,7 @@ func LargestSumSubArray(a []int) {
 		//stringJoiner.add(sum + "")
 	}
 	//System.out.print(stringJoiner.toString())
-	fmt.Printf(" => {%v,%v = %v} \n", fidx, toIdx, maxSum)
+	fmt.Printf(" => {%v,%v = %v} \n", fidx+1, toIdx, maxSum)
 }
 
 /*

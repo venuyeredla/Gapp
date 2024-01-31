@@ -1,6 +1,10 @@
 package array
 
-import "testing"
+import (
+	"fmt"
+	"math"
+	"testing"
+)
 
 func TestSubsetSum(t *testing.T) {
 	input := []int{3, 2, 7, 1}
@@ -24,4 +28,41 @@ func TestLargeMonotonic(t *testing.T) {
 		t.Error("Failed to pass test")
 		t.FailNow()
 	}
+}
+
+// First increase J to increase sum beyond or equal to sum.
+// Second increase i to minimize the length
+func minSubArrayLen(target int, nums []int) int {
+	// nums[i:j]>=traget.  return j-i
+	ms, sum := math.MaxInt, 0
+	for i, j := 0, 0; j < len(nums); j++ {
+		sum = sum + nums[j]
+		if sum >= target {
+			ms = Min(ms, j-i+1)
+			for sum-nums[i] >= target {
+				sum = sum - nums[i]
+				i = i + 1
+				ms = Min(ms, j-i+1)
+			}
+		}
+	}
+	if ms == math.MaxInt {
+		return 0
+	} else {
+		return ms
+	}
+}
+
+func Min(i, j int) int {
+	if i < j {
+		return i
+	} else {
+		return j
+	}
+}
+
+func TestFuck(t *testing.T) {
+	nums := []int{10, 2, 3}
+	min := minSubArrayLen(11, nums)
+	fmt.Printf("value =%v \n", min)
 }

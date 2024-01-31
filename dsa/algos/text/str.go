@@ -7,6 +7,17 @@ import (
 	"strings"
 )
 
+// Size=(n *(n+1))/2  ==> l=r=0 means bottom up;
+func SubStrings(str string, l, r, n int) {
+	if r < n {
+		fmt.Println(str[l : r+1])
+		SubStrings(str, l, r+1, n)
+		if r+1 == n && (l+1) < n {
+			SubStrings(str, l+1, l+1, n)
+		}
+	}
+}
+
 // Backtracking algorithm
 func Permuations(arr []int, left, right int, collector *util.Collector) {
 	if left == right {
@@ -17,17 +28,11 @@ func Permuations(arr []int, left, right int, collector *util.Collector) {
 		collector.Append(sb.String())
 	} else {
 		for i := left; i < right; i++ {
-			SwapA(arr, i, left)
+			arr[i], arr[left] = arr[left], arr[i]
 			Permuations(arr, left+1, right, collector)
-			SwapA(arr, left, i) //Backtracking step
+			arr[i], arr[left] = arr[left], arr[i]
 		}
 	}
-}
-
-func SwapA(input []int, i, j int) {
-	temp := input[i]
-	input[i] = input[j]
-	input[j] = temp
 }
 
 /*
@@ -46,99 +51,31 @@ func subSeq(str, sub string, left, right int, collector *util.Collector) {
 	if str == "" || left == right {
 		return
 	}
-	//for i := left; i < right; i++ {
 	newSub := sub + string(str[left])
 	collector.Append(newSub)
-	// Swap(&str, i, left)
 	subSeq(str, newSub, left+1, right, collector)
 	subSeq(str, sub, left+1, right, collector)
 }
 
 /*
-if size
-
-	even -> character frequency should be even
-	odd -> one character should have odd freqencies.
+Size ==even -> character frequency should be even
+size ==odd -> one character should have odd freqencies.
 */
-func IsPalindrome(str string, l, r int) bool {
-	if l >= r {
+func IsPalindrome(str string /*, l, r int */) bool {
+	/*if l >= r {
 		return true
 	} else if str[l:l+1] != str[r:r+1] {
 		return false
 	} else {
 		return IsPalindrome(str, l+1, r-1)
-	}
-}
+	} */
 
-func Palindrome(A string) bool {
-	l := 0
-	r := len(A) - 1
-	for l <= r {
-		if A[l] != A[r] {
+	for l, r := 0, len(str)-1; l <= r; l, r = l+1, r-1 {
+		if str[l] != str[r] {
 			return false
 		}
-		l++
-		r--
 	}
 	return true
-}
-
-func TestType() bool {
-	var a uint16 = 13
-	var b uint16 = 13
-	return a-b < 0
-}
-
-func PMatchNaive(text, pattern string) int {
-	index := -1
-	matched := true
-	for tIdx := 0; tIdx <= len(text)-len(pattern); tIdx++ {
-		index = tIdx
-		matched = true
-		for pIdx := 0; pIdx < len(pattern); pIdx++ {
-			temp := pIdx + tIdx
-			if pattern[pIdx:pIdx+1] != text[temp:temp+1] {
-				matched = false
-				index = -1
-				break
-			}
-		}
-		if matched == true {
-			break
-		}
-	}
-	return index
-}
-
-func searchKMP(txt, pat string) int {
-	//int[] buildLps = this.buildLps(pat);
-	for i := 0; i < len(txt); i++ {
-
-	}
-
-	return 0
-}
-
-func buildLps(pat string) []int {
-	lps := make([]int, len(pat))
-	i := 0
-	j := 1
-	lps[i] = 0
-	for j < len(pat) {
-		if pat[i] == pat[j] {
-			lps[j] = i + 1
-			i++
-			j++
-		} else {
-			if i != 0 {
-				i = lps[i-1]
-			} else {
-				lps[j] = i
-				j++
-			}
-		}
-	}
-	return lps
 }
 
 func validIp(ip string) bool {
@@ -221,17 +158,6 @@ func MultiStr(a, b string) {
 	}
 }
 
-// Size=(n *(n+1))/2  ==> l=r=0 means bottom up;
-func SubStrings(str string, l, r, n int) {
-	if r < n {
-		fmt.Println(str[l : r+1])
-		SubStrings(str, l, r+1, n)
-		if r+1 == n && (l+1) < n {
-			SubStrings(str, l+1, l+1, n)
-		}
-	}
-}
-
 var max string
 var maxlen = 0
 
@@ -239,7 +165,7 @@ func Substrs(A string, l, r, n int) {
 	if r == n {
 		return
 	}
-	if IsPalindrome(A, l, r) {
+	if IsPalindrome(A[l:r]) {
 		size := len(A[l : r+1])
 		if size > maxlen {
 			maxlen = size
@@ -256,28 +182,4 @@ func Substrs(A string, l, r, n int) {
 	if r+1 == n {
 		Substrs(A, l+1, l+1, n)
 	}
-}
-
-func wordPattern(pattern string, s string) bool {
-	if len(s) == 0 || len(pattern) == 0 {
-		return false
-	}
-	strs := strings.Split(s, " ")
-	if len(pattern) != len(strs) {
-		return false
-	}
-	lm := make(map[string]string)
-	for i, val := range pattern {
-		pk := string(val)
-		sval := strs[i]
-		mval, exist := lm[pk]
-		if exist {
-			if mval != sval {
-				return false
-			}
-		} else {
-			lm[pk] = sval
-		}
-	}
-	return true
 }

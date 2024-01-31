@@ -7,6 +7,11 @@ import (
 	"testing"
 )
 
+type TestIO struct {
+	Input  string
+	Output string
+}
+
 func TestPermuations(t *testing.T) {
 	arr := []int{1, 2, 3, 4}
 	size := maths.Factorial(len(arr))
@@ -20,16 +25,11 @@ func TestPermuations(t *testing.T) {
 func TestSubSequnces(t *testing.T) {
 	subseq := SubSeqences("bbabcbcab") //bbabcbcab     abc
 	for _, s := range subseq {
-		if Palindrome(s) {
-			fmt.Println(s)
+		if IsPalindrome(s) {
+			fmt.Printf("%v - %v\n", s, len(s))
 		}
 
 	}
-}
-
-type TestIO struct {
-	Input  string
-	Output string
 }
 
 func TestReverse(t *testing.T) {
@@ -47,17 +47,6 @@ func TestReverse(t *testing.T) {
 	}
 }
 
-func TestPalindrome(t *testing.T) {
-	var in string = "venunev"
-	isPalindrome := IsPalindrome(in, 0, len(in)-1)
-	if !isPalindrome {
-		t.Log("Not a palindrome")
-		t.Fail()
-	} else {
-		t.Log("Is palindrome")
-	}
-}
-
 func TestString(t *testing.T) {
 	MultiStr("0033", "22")
 }
@@ -68,8 +57,4 @@ func TestRToD(t *testing.T) {
 		t.Log("Not a valid decimal")
 		t.Fail()
 	}
-}
-
-func TestWP(t *testing.T) {
-	wordPattern("abba", "dog dog dog dog")
 }

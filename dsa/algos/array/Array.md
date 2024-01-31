@@ -1,6 +1,13 @@
 
 # Array Notes
 
+1. Soring & Binary search.
+2. Merging if arrays size> 1 and sorted.
+3. Two pointer approach
+4  Sliding 
+5. Recursion
+
+
 1. Rewriting array and using two pointer approach. Instead of deleting consider rewriting.
 2. Partioning(Quick sort), Sorting, Searching, Swapping, Rearrangement.
 3. Array problems has brute force approach.

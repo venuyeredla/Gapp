@@ -52,6 +52,6 @@ func TestTraversals(t *testing.T) {
 			j += 1
 		}
 	}
-	test(NewAvlTree())
+	test(NewBinaryTree(AVL))
 	test(NewImmutableAvlTree())
 }

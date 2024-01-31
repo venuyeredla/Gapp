@@ -18,17 +18,27 @@ func logging(f http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.URL.Path)
 		f(w, r)
+		log.Println(r.URL.Path)
+	}
+}
+
+func JwtValidate(f http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Println(r.URL.Path)
+		f(w, r)
+		log.Println(r.URL.Path)
 	}
 }
 
 func ConfigureHttp() {
 	log.Println("Setting up file server and api handlers")
 	//Static file handler
-	fileHandler := http.FileServer(http.Dir("webapp/"))
-	http.Handle("/webapp/", http.StripPrefix("/webapp/", fileHandler))
+	fileHandler := http.FileServer(http.Dir("wstatic/"))
+	http.Handle("/wstatic/", http.StripPrefix("/wstatic/", fileHandler))
+
 	//opening introduction page.
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "webapp/index.html")
+		http.ServeFile(w, r, "wstatic/index.html")
 	})
 
 	//Generating entitre HTML using libraries
@@ -37,6 +47,8 @@ func ConfigureHttp() {
 	http.HandleFunc("/form", sc.GenrateForm)
 
 	var customerAPI handlers.CustomerAPI
+
+	http.HandleFunc("/api/authenticate", logging(customerAPI.Authenticate))
 	http.HandleFunc("/signup", logging(customerAPI.SignUp))
 	http.HandleFunc("/custinfo", logging(customerAPI.CustInfo))
 

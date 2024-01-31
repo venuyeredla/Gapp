@@ -5,20 +5,20 @@ import (
 	. "Gapp/dsa/ds/types"
 )
 
-type entry struct {
+type Entry struct {
 	key   Hashable
 	value interface{}
-	next  *entry
+	next  *Entry
 }
 
 type Hash struct {
-	table []*entry
+	table []*Entry
 	size  int
 }
 
-func (self *entry) Put(key Hashable, value interface{}) (e *entry, appended bool) {
+func (self *Entry) Put(key Hashable, value interface{}) (e *Entry, appended bool) {
 	if self == nil {
-		return &entry{key, value, nil}, true
+		return &Entry{key, value, nil}, true
 	}
 	if self.key.Equals(key) {
 		self.value = value
@@ -29,7 +29,7 @@ func (self *entry) Put(key Hashable, value interface{}) (e *entry, appended bool
 	}
 }
 
-func (self *entry) Get(key Hashable) (has bool, value interface{}) {
+func (self *Entry) Get(key Hashable) (has bool, value interface{}) {
 	if self == nil {
 		return false, nil
 	} else if self.key.Equals(key) {
@@ -39,7 +39,7 @@ func (self *entry) Get(key Hashable) (has bool, value interface{}) {
 	}
 }
 
-func (self *entry) Remove(key Hashable) *entry {
+func (self *Entry) Remove(key Hashable) *Entry {
 	if self == nil {
 		panic(Errors["not-found-in-bucket"](key))
 	}
@@ -53,7 +53,7 @@ func (self *entry) Remove(key Hashable) *entry {
 
 func NewHashTable(initial_size int) *Hash {
 	return &Hash{
-		table: make([]*entry, initial_size),
+		table: make([]*Entry, initial_size),
 		size:  0,
 	}
 }
@@ -79,7 +79,7 @@ func (self *Hash) Put(key Hashable, value interface{}) (err error) {
 
 func (self *Hash) expand() error {
 	table := self.table
-	self.table = make([]*entry, len(table)*2)
+	self.table = make([]*Entry, len(table)*2)
 	self.size = 0
 	for _, E := range table {
 		for e := E; e != nil; e = e.next {
@@ -119,7 +119,7 @@ func (self *Hash) Remove(key Hashable) (value interface{}, err error) {
 func (self *Hash) Iterate() KVIterator {
 	table := self.table
 	i := -1
-	var e *entry
+	var e *Entry
 	var kv_iterator KVIterator
 	kv_iterator = func() (key Hashable, val interface{}, next KVIterator) {
 		for e == nil {

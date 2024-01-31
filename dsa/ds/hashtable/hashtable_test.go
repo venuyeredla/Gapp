@@ -171,7 +171,7 @@ func TestIterate(t *testing.T) {
 	}
 	test(NewHashTable(64))
 	test(NewLinearHash())
-	test(binary.NewAvlTree())
+	test(binary.NewBinaryTree(binary.AVL))
 	test(binary.NewImmutableAvlTree())
 }
 

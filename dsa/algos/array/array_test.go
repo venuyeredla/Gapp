@@ -6,32 +6,23 @@ import (
 	"testing"
 )
 
-func TestSortingAndSearching(t *testing.T) {
+func TestSortBsearch(t *testing.T) {
 	//t.Skip()
 	input := []int{10, 80, 30, 90, 40, 50, 70}
 	expected := []int{10, 30, 40, 50, 70, 80, 90}
 	key := 70
-	found, index := linearSearch(input, key)
-	if !found {
-		t.Errorf("Erron in linear search algorithm ")
-	} else {
-		t.Logf("Found at index = %v", index)
-	}
-	fmt.Printf("Input = %v  and Linear search =%v \n\n", input, index)
-
 	sortAlgos := []Salgo{Bubble, Selection, Insertion, Merge, Quick}
-	//sortAlgos := []Salgo{Selection}
 	fmt.Println("Sorting and applying binary search")
 	for _, algo := range sortAlgos {
 		C := make([]int, len(input))
 		copy(C, input)
 		Sort(C, algo)
-		result, msg := util.AssertEquals(expected, C, true)
+		result, msg := util.AssertEquals(expected, C, false)
 		if !result {
 			t.Errorf("Failed Algorithm : %v Error MSG=%v ", algo, msg)
 			break
 		}
-		found, index = BinarySearch(C, key)
+		found, index := BinarySearch(C, key)
 		if !found {
 			t.Fatal("Input: ", input, " Key : ", key, found)
 		} else {
