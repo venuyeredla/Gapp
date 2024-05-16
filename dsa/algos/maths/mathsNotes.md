@@ -1,6 +1,6 @@
 ## Well ordering property - Every nonempty set of positive integers has a least element. 
 Progressions.  
-        Sigma notation for Summation,   Pi notation for Product of the sequence numbers.
+    Sigma notation for Summation,   Pi notation for Product of the sequence numbers.
 	Arithmetic A[n+1]= 2*n+d   -  Focus on difference. Sn =1/2(2*a+n*d)
 	Geometric A[n]=a * pow(r,n) = a pow(r,0), a pow(r,1) …   Focus on ratios	= Sig{0,n}=a(pow(r,n+1) - 1)/r-1
 
@@ -63,3 +63,53 @@ Functions are sometimes also called mappings or transformations.
 
 Relation.
 Graph 
+
+
+
+
+Functions
+Functions arise when a quantity y depends on another one called x. => y=f(x)
+Representations:
+Verbally
+Numerical table of values.
+Visually by graph. Graph is set of order pairs. (Domain ,Codomain) {(x,y) | x Of D, y of CD}
+ Piecewise functions 
+
+Catalog of essential functions
+1. Constant : f(n)= c1+c2 
+2. Logarithmic : f(x)=log(x, b), Inverse of exponential, ln-e natural , log-2, log-10  
+3. Linear : y=mx+c
+4. Super-linear :  f(n) = O(n * log(n))
+5. Quadratic (Power) : f(x)=a*pow(x,2)+b.x+c      f(n) = O(pow(n,2)).          
+6. Cubic function (Power): f(x)= a * pow(x, 3)+ b * pow(x,2)    => f(n) = O ( pow(n, 3))
+7. Exponential (Exponent is variable) : f(x)=pow(a,x)   => Subset is exponent : f(n) = pow (2,x)
+8. Factorial : f(n) =n!  => permutations.
+9. Polynomial : P(x) = [0,n]sum( a[n] pow(x,n) 
+10. Rational : f(x)=P(x)/Q(x) ratio of polynomials 
+11. Algebraic : f(x)=sqrt(2*x+1)
+12 Trigonometric : sin(x), cos(x)
+
+
+
+
+# Probability 
+is helpful in measuring uncertainty. 
+
+Random variable is variable which takes one of possible values randomly. 
+Discrete random variable : Occupies discrete set of states. 
+ Probability mass function gives the probability of random variable taking a given possible value. 
+ 	i.e it maps a state/value to it probability. 
+          Bernoulli distribution. Multinouli distribution 
+
+Continuous random variable : Takes continuous values called real values.
+	
+   Probability density function is used describe how the probabilities are distributed when dealing 
+Continuous random variables.  
+	Gaussian distribution 
+
+Numerical computation :
+	Problems arise during rounding of real numbers.
+Underflow : Occurs when number near to zero rounded to zero.
+Overflow : Numbers with large values are approximated to infinity.
+ 
+Optimization refers to task of minimizing or maximizing of a function f(x) by altering x.

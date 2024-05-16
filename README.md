@@ -31,9 +31,10 @@ Implementing all data storage systems like RDBMS,NOSQL,Information Retrieval as 
 
  Developing Micro Services using. Go lang .
 
-Web frameworks : Gorilla & Gin
+# Web frameworks : Gorilla & Gin
 
-Authentication & authorization
+
+# Authentication & authorization
 (Oauth2 is used to access Microsoft Graph API)
 
 JWT token implementation:
@@ -42,11 +43,11 @@ https://github.com/golang-jwt/jwt
 Making http client with certs to access HTTPS service.
 
  
-Accessing databases : 
+# RDBMD Accessing databases 
 Oracle : https://github.com/sijms/go-ora
 
 
-Accessing Redis:
+Redis Integration:
 https://github.com/redis/go-redis
 
 

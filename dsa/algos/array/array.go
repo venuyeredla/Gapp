@@ -1,10 +1,10 @@
 package array
 
 import (
-	"Gapp/dsa/util"
+	heap "Gapp/dsa/ds/priority"
+	"Gapp/dsa/ds/types"
+	"Gapp/dsa/utils"
 	"fmt"
-	"math"
-	"sort"
 	"strings"
 )
 
@@ -22,37 +22,6 @@ const (
 	Bucket
 )
 
-func BinarySearch(input []int, key int) (bool, int) {
-	l, r := 0, len(input)
-	for l < r {
-		m := l + ((r - l) / 2)
-		if key > input[m] {
-			l = m + 1
-		} else {
-			r = m
-		}
-	}
-	if input[l] == key {
-		return true, l
-	} else {
-		return false, -1
-	}
-}
-
-func binarySearchR(input []int, left int, right int, key int) bool {
-	if left < right {
-		m := left + ((right - left) / 2)
-		if input[m] == key {
-			return true
-		} else if key > input[m] {
-			binarySearchR(input, m+1, right, key)
-		} else {
-			binarySearchR(input, left, m, key)
-		}
-	}
-	return false
-}
-
 // arrange numbers in ai<aj  where i<j
 func Sort(input []int, algo Salgo) {
 	length := len(input)
@@ -61,11 +30,11 @@ func Sort(input []int, algo Salgo) {
 		for i := 0; i < length; i++ {
 			for j := 0; j < length-i-1; j++ {
 				if input[j] > input[j+1] {
-					Swap(input, j, j+1)
+					input[j], input[j+1] = input[j+1], input[j]
 				}
 			}
 		}
-		break
+
 	case Selection:
 		for i := 0; i < length; i++ {
 			minIdx := i
@@ -75,48 +44,38 @@ func Sort(input []int, algo Salgo) {
 				}
 			}
 			if minIdx != i {
-				Swap(input, minIdx, i)
+				input[minIdx], input[i] = input[i], input[minIdx]
 			}
 		}
-		break
+
 	case Insertion:
-		// {10,30,40,50,70,80,90}
-		// {10,30,30,40,40,50,70}
 		for i := 1; i < len(input); i++ {
 			j := i - 1
-			for j >= 0 && input[i] < input[j] {
+			temp := input[i]
+			for j >= 0 && temp < input[j] {
+				input[j+1] = input[j]
 				j--
 			}
 			j++
-			//Copy empty j by moving elements to
 			if j != i {
-				temp := input[i]
-				for k := i - 1; k >= j; k-- {
-					input[k+1] = input[k]
-				}
 				input[j] = temp
 			}
+
 		}
-		break
 	case Heap:
-		break
+		fmt.Println("Need to be implmented")
 
 	case Quick:
-		QuickSort(input, 0, (len(input) - 1))
-		break
+		QuickSort(input, 0, len(input)-1)
 
 	case Merge:
 		MergSort(input, 0, length-1)
-		break
-
 	}
-
 }
 
 func QuickSort(input []int, left, right int) {
 	if left < right {
 		pivot := quickPartition(input, left, right)
-
 		fmt.Printf("Left=[%v, %v], Right=[%v,%v] \n", left, pivot-1, pivot+1, right)
 		QuickSort(input, left, pivot-1)
 		QuickSort(input, pivot+1, right)
@@ -130,61 +89,36 @@ func quickPartition(input []int, left, right int) int {
 	for j := left; j < right; j++ {
 		if input[j] < pivot {
 			i = i + 1
-			Swap(input, i, j)
+			input[i], input[j] = input[j], input[i]
 		}
 	}
-	Swap(input, i+1, right)
+	input[i+1], input[right] = input[right], input[i+1]
 	return (i + 1)
 }
 
-func Swap(input []int, i, j int) {
-	temp := input[i]
-	input[i] = input[j]
-	input[j] = temp
-}
-
-// Main function that sorts arr[l..r] using
-// merge()
 func MergSort(arr []int, l, r int) {
 	if l < r {
 		// Find the middle point
 		m := l + (r-l)/2
-
 		// Sort first and second halves
 		MergSort(arr, l, m)
 		MergSort(arr, m+1, r)
-
 		// Merge the sorted halves
 		merge(arr, l, m, r)
 	}
 }
 
 func merge(arr []int, l, m, r int) {
-	// Find sizes of two subarrays to be merged
-	n1 := m - l + 1
-	n2 := r - m
-
-	/* Create temp arrays */
-	var L []int = make([]int, n1)
-	var R []int = make([]int, n2)
-
-	/*Copy data to temp arrays*/
-	for i := 0; i < n1; i++ {
-		L[i] = arr[l+i]
-	}
-	for j := 0; j < n2; j++ {
-		R[j] = arr[m+1+j]
-	}
-
-	/* Merge the temp arrays */
-
-	// Initial indexes of first and second subarrays
-	i := 0
-	j := 0
-
-	// Initial index of merged subarray array
+	//var L []int = make([]int, n1)
+	LT := arr[l : m+1]
+	RT := arr[m+1 : r+1]
+	L := make([]int, len(LT))
+	R := make([]int, len(RT))
+	copy(L, LT[:])
+	copy(R, RT[:])
+	i, j := 0, 0
 	k := l
-	for i < n1 && j < n2 {
+	for i < len(L) && j < len(R) {
 		if L[i] <= R[j] {
 			arr[k] = L[i]
 			i++
@@ -196,32 +130,54 @@ func merge(arr []int, l, m, r int) {
 	}
 
 	/* Copy remaining elements of L[] if any */
-	for i < n1 {
+	for i < len(L) {
 		arr[k] = L[i]
 		i++
 		k++
 	}
 
 	/* Copy remaining elements of R[] if any */
-	for j < n2 {
+	for j < len(R) {
 		arr[k] = R[j]
 		j++
 		k++
 	}
 }
 
-func Subset(arr []int) []string {
-	nofSubsets := int(math.Pow(2, float64(len(arr))))
-	collector := util.StringCollector(nofSubsets)
+// Since array sorted we can use binary search
+func findKeyRotated(nums []int, target int) int {
+	l, r := 0, len(nums)-1
+	for l <= r {
+		m := l + ((r - l) / 2)
+		if nums[m] == target {
+			return m
+		} else if target >= nums[l] {
+			if target < nums[m] {
+				r = m - 1
+			} else {
+				l = m + 1
+			}
+		} else {
+			if target > nums[r] {
+				r = m - 1
+			} else {
+				l = m + 1
+			}
+
+		}
+	}
+	return -1
+}
+
+func PowerSet(arr []int, nofSubsets int, collector *utils.Collector) {
 	for idx := 0; idx < nofSubsets; idx++ {
 		i := -1
 		var sb strings.Builder
 		sb.WriteString("{")
 		num := idx
 		for num > 0 {
-			bit := num & 1
 			i += 1
-			if bit == 1 {
+			if num&1 == 1 {
 				fmt.Fprintf(&sb, "%d", arr[i])
 			}
 			num = num >> 1
@@ -230,18 +186,17 @@ func Subset(arr []int) []string {
 		collector.Append(sb.String())
 	}
 
-	return collector.Elements
 }
 
 // Sets containing element and not containg element.
 // // 1,2,3 -> 1,2,3
 //     and  2,3
 
-func SubsetBackTracking(arr []int, l, r int) {
+func PowerSetByBacktrack(arr []int, collector *utils.Collector, l, r int) {
 	if len(arr) == 1 {
-		util.Printable(arr, l, r)
+		collector.Append(utils.Printable(arr, l, r))
 	} else if len(arr) > 1 {
-		util.Printable(arr, l, r)
+		collector.Append(utils.Printable(arr, l, r))
 		subsize := r - l
 		for i := l + 1; i < len(arr); i++ {
 			include := make([]int, 0, subsize)
@@ -251,15 +206,14 @@ func SubsetBackTracking(arr []int, l, r int) {
 				}
 			}
 			//	fmt.Printf("include =%v", include)
-
-			SubsetBackTracking(include, 0, len(include)-1)
+			PowerSetByBacktrack(include, collector, 0, len(include)-1)
 		}
 
-		exclude := make([]int, subsize, subsize)
+		exclude := make([]int, subsize)
 		copy(exclude, arr[l+1:])
 		if len(exclude) > 1 {
 			//fmt.Printf("Exclude =%v", exclude)
-			SubsetBackTracking(exclude, 0, len(exclude)-1)
+			PowerSetByBacktrack(exclude, collector, 0, len(exclude)-1)
 		}
 	}
 }
@@ -276,38 +230,8 @@ func combinations(arr []int, to, size int) {
 		selection[0] = arr[i]
 		for j := i + 1; j < len(arr); j++ {
 			selection[1] = arr[j]
-			util.Printable(selection[:], 0, 1)
+			utils.Printable(selection[:], 0, 1)
 		}
-	}
-}
-
-// Partion negative and positive numbers
-func partion(a []int) {
-	pivot := 0
-	for i := 1; i < len(a); i++ {
-		if a[i] < a[pivot] {
-			Swap(a, pivot, i)
-			pivot++
-		}
-	}
-}
-
-// Print numbers from forward and backward.
-func PrintFB(a []int, i int) {
-	if len(a) == i {
-		return
-	} else {
-		fmt.Printf("%v ,", a[i])
-		PrintFB(a, i+1)
-		fmt.Printf("%v ,", a[i])
-	}
-}
-
-func sum(a []int, i int) int {
-	if len(a) == i {
-		return a[i]
-	} else {
-		return a[i] + sum(a, i+1)
 	}
 }
 
@@ -315,18 +239,16 @@ func sum(a []int, i int) int {
 // Method-1 : whenever zero element move all next elements to before then place zero at the end.
 // Method-2 : Counting zeros and moving next nonzero elemnt
 func MovallZeros(a []int) {
-	zeros := 0
+	widx := -1
 	for i := 0; i < len(a); i++ {
 		if a[i] != 0 {
-			if zeros > 0 {
-				a[i-zeros] = a[i]
-				a[i] = 0
-			}
-		} else {
-			zeros++
+			widx += 1
+			a[widx] = a[i]
 		}
 	}
-
+	for widx += 1; widx < len(a); widx++ {
+		a[widx] = 0
+	}
 }
 
 // a[i]=i  a[i]=-1, a[]!=i
@@ -349,7 +271,12 @@ func Rearrange(a []int) {
 	}
 }
 
-func KMostOccur(a []int) {
+/*
+Approach 1 : Frequency map => Sort By Value => then pick top K elements.
+Approach 2 : using Priority queue.
+*/
+func KMostOccurance(a []int, k int) []int {
+
 	freqMap := make(map[int]int)
 	for _, v := range a {
 		_, present := freqMap[v]
@@ -359,31 +286,22 @@ func KMostOccur(a []int) {
 			freqMap[v] = 1
 		}
 	}
-	keys := make([]int, len(freqMap))
-	for k, v := range freqMap {
-		keys = append(keys, k)
-		fmt.Printf("%v - %v ,", k, v)
-	}
-	fmt.Println()
-	sort.Ints(keys)
 
-	for _, k := range keys {
-		value, exist := freqMap[k]
-		if exist {
-			fmt.Printf("%v - %v , ", k, value)
-		}
+	pq := heap.NewMinHeap(10)
+
+	for k, v := range freqMap {
+		value := types.Int32(k)
+		pq.Push(v, value)
 	}
-	fmt.Println()
-	sort.SliceStable(keys, func(i, j int) bool {
-		return freqMap[keys[i]] > freqMap[keys[j]]
-	})
-	for _, k := range keys {
-		value, exist := freqMap[k]
-		if exist {
-			fmt.Printf("%v - %v , ", k, value)
-		}
-	}
-	fmt.Println()
+	/*
+		sort.Ints(keys)
+		sort.SliceStable(keys, func(i, j int) bool {
+			return freqMap[keys[i]] > freqMap[keys[j]]
+		})
+	*/
+	result := make([]int, k)
+
+	return result
 }
 
 // Sorted array
@@ -399,28 +317,22 @@ func removeDuplicates(input []int) {
 	for ; i < len(input); i++ {
 		input[i] = -1
 	}
-
-	fmt.Printf("%v", input)
-
 }
 
-func BuyAndsell(s []int) {
+func BuyAndsell(s []int) int {
 	n := len(s)
 	maxProfit := 0
 	maxPrice := s[n-1]
-	maxPriceIdx := n - 1
 	for j := n - 2; j >= 0; j-- {
 		if maxPrice < s[j] {
 			maxPrice = s[j]
-			maxPriceIdx = j
 		}
 		local := maxPrice - s[j]
 		if maxProfit < local {
 			maxProfit = local
 		}
 	}
-
-	fmt.Println(maxPriceIdx)
+	return maxProfit
 }
 
 // Range queries can be solved by Prefix sum array or Segment Trees and Binary Indexed trees.
@@ -435,7 +347,6 @@ func RangeQueriesSum(input []int, queries [][2]int) []int {
 	for j := range queries {
 		from := queries[j][0]
 		to := queries[j][1]
-
 		output[j] = sumArray[to] - sumArray[from-1]
 	}
 	return output
@@ -478,16 +389,6 @@ func QuerySegemnt(segement []int, from, to int) int {
 
 func getMid(l, r int) int {
 	return l + (r-l)/2
-}
-
-/*
-Input: nums = [-1,0,1,2,-1,-4]
-Output: [[-1,-1,2],[-1,0,1]]
-*/
-func tripleSum(nums []int) {
-
-	sort.Ints(nums)
-
 }
 
 /*

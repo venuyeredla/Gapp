@@ -4,6 +4,8 @@ import (
 	"Gapp/web/models"
 	"html/template"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type StatiContent struct {
@@ -16,18 +18,17 @@ func (sc *StatiContent) Preprocess() {
 	sc.TemplateMap["formtmpl"] = template.Must(template.ParseFiles("wstatic/form.html"))
 }
 
-func (sc *StatiContent) GenrateForm(w http.ResponseWriter, r *http.Request) {
-	/*if r.Method != http.MethodPost {
-		tmpl.Execute(w, nil)
-		return
-	} */
-
+func (sc *StatiContent) GenrateForm(c *gin.Context) {
 	details := models.ContactInfo{
-		Email: r.FormValue("email"),
+		Email: c.Request.FormValue("email"),
 	}
-	formtmpl := sc.TemplateMap["formtmpl"]
-
-	// do something with details
+	/*
+		// Native way of loading template and generating htmls
+		template.Must(template.ParseFiles("wstatic/form.html"))
+		formtmpl := sc.TemplateMap["formtmpl"]
+			 do something with details
+		 formtmpl.Execute(w, d)
+	*/
 	_ = details
 
 	data := models.TodoPageData{
@@ -44,5 +45,6 @@ func (sc *StatiContent) GenrateForm(w http.ResponseWriter, r *http.Request) {
 		Todo    models.TodoPageData
 	}{Success: false, Todo: data}
 
-	formtmpl.Execute(w, d)
+	c.HTML(http.StatusOK, "form.html", d)
+
 }

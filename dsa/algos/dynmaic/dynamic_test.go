@@ -19,3 +19,12 @@ func TestCoingChange(t *testing.T) {
 	count := CoinChange(A, 4)
 	t.Logf("Output is : %v", count)
 }
+
+func TestRob(t *testing.T) {
+	A := []int{2, 7, 9, 3, 1}
+	maxAmt := Rob(A, 4)
+	expected := 12
+	if maxAmt != expected {
+		t.Errorf("Expected =%v , Actual=%v", expected, maxAmt)
+	}
+}

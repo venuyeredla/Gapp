@@ -1,30 +1,25 @@
 package maths
 
 import (
+	"fmt"
 	"testing"
 )
 
-func TestGcd(t *testing.T) {
-	var a uint = 10
-	var b uint = 15
-	input_arr := [3]uint{10, 15, 25}
-	var expected uint = 5
-	gcd := Gcd(a, b)
-	if gcd != expected {
-		t.Fatalf("Error in Gcd() Expected= %v => actual = %v", expected, gcd)
-	}
-	gcd_arr := GcdArr(input_arr[:])
-	if gcd_arr != expected {
-		t.Fatalf("Error in Gcd() Expected= %v => actual = %v", expected, gcd_arr)
-	} else {
-		t.Logf("Gcd() Expected= %v => actual = %v", expected, gcd)
-	}
+func TestSummations(t *testing.T) {
+
 }
 
-func TestSummations(t *testing.T) {
-	//fmt.Printf("\n Sum1toN(%v) = %v ", 10, Sum1toN(10))
-	Sum1toN(10)
-	SumOfSquares(4)
-	SumOfGeometric(1, 2, 3)
+func TestModular(t *testing.T) {
+	x := 2
+	y := 5
+	p := 13
+	mod := ModuloPower(x, y, p)
+	fmt.Printf("Power is=%v ", mod)
+	input := [2]int{7, 9}
+	modulo := 11
+	ModAdd(input[:], modulo)
+	ModMulti(input[:], modulo)
+	modExponent := ModExponent(3, 2003, 99)
+	fmt.Printf("3, 2003, 99 = %v \n", modExponent)
 
 }

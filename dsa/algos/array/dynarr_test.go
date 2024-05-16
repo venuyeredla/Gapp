@@ -1,6 +1,7 @@
 package array
 
 import (
+	"Gapp/dsa/utils"
 	"fmt"
 	"math"
 	"testing"
@@ -38,11 +39,11 @@ func minSubArrayLen(target int, nums []int) int {
 	for i, j := 0, 0; j < len(nums); j++ {
 		sum = sum + nums[j]
 		if sum >= target {
-			ms = Min(ms, j-i+1)
+			ms = utils.Min(ms, j-i+1)
 			for sum-nums[i] >= target {
 				sum = sum - nums[i]
 				i = i + 1
-				ms = Min(ms, j-i+1)
+				ms = utils.Min(ms, j-i+1)
 			}
 		}
 	}
@@ -50,14 +51,6 @@ func minSubArrayLen(target int, nums []int) int {
 		return 0
 	} else {
 		return ms
-	}
-}
-
-func Min(i, j int) int {
-	if i < j {
-		return i
-	} else {
-		return j
 	}
 }
 

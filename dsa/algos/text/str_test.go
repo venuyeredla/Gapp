@@ -2,7 +2,7 @@ package text
 
 import (
 	"Gapp/dsa/algos/maths"
-	"Gapp/dsa/util"
+	"Gapp/dsa/utils"
 	"fmt"
 	"testing"
 )
@@ -15,7 +15,7 @@ type TestIO struct {
 func TestPermuations(t *testing.T) {
 	arr := []int{1, 2, 3, 4}
 	size := maths.Factorial(len(arr))
-	collector := util.StringCollector(size)
+	collector := utils.StringCollector(size)
 	Permuations(arr, 0, len(arr), collector)
 	for _, val := range collector.Elements {
 		fmt.Println(val)

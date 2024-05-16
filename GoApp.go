@@ -4,7 +4,6 @@ package main
 import (
 	"Gapp/web"
 	"log"
-	"net/http"
 	"os"
 )
 
@@ -15,9 +14,10 @@ const (
 func main() {
 	host, _ := os.Hostname()
 	// fmt.Printf("Host %s, Page/Block size =%v \n", host, os.Getpagesize())
-	web.ConfigureHttp()
+	router := web.ApiConfig()
+	//hostString := host + string(port)
+	router.Run(":2023")
 	log.Printf("Application is available at Host: %v and  Port=%v", host, port)
 	//log.P("Http Server running on port. 2023")
-	http.ListenAndServe(":2023", nil)
 
 }

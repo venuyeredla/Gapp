@@ -1,7 +1,7 @@
 package text
 
 import (
-	"Gapp/dsa/util"
+	"Gapp/dsa/utils"
 	"fmt"
 	"strconv"
 	"strings"
@@ -19,7 +19,7 @@ func SubStrings(str string, l, r, n int) {
 }
 
 // Backtracking algorithm
-func Permuations(arr []int, left, right int, collector *util.Collector) {
+func Permuations(arr []int, left, right int, collector *utils.Collector) {
 	if left == right {
 		var sb strings.Builder
 		for k := 0; k <= right-1; k++ {
@@ -42,12 +42,12 @@ Output : a, ab, abc, ac   b, bc, c
 	inclusion and eclusion principle. Backtracking and recurison
 */
 func SubSeqences(str string) []string {
-	collector := util.StringCollector(8)
+	collector := utils.StringCollector(8)
 	subSeq(str, "", 0, len(str), collector)
 	return collector.Elements
 }
 
-func subSeq(str, sub string, left, right int, collector *util.Collector) {
+func subSeq(str, sub string, left, right int, collector *utils.Collector) {
 	if str == "" || left == right {
 		return
 	}

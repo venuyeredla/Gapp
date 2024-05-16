@@ -61,3 +61,15 @@ func TestLps(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestWordBreak(t *testing.T) {
+
+	words := []string{"leet", "code"}
+	actual := wordBreak(words, "leetcode")
+	expected := true
+
+	if actual != expected {
+		t.Errorf("Wrong logic")
+	}
+
+}

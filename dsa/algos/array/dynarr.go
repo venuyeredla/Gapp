@@ -1,13 +1,12 @@
 package array
 
 import (
-	"Gapp/dsa/util"
+	"Gapp/dsa/utils"
 	"fmt"
 )
 
 /*
 	Subset sum problem is to find subset of elements that are selected from a given set whose sum adds up to a given number K.
-
 	Approach :
 		1. Brute forece. Genereate all subsets. loop for subsetsum. Recursion.
 		2. Dynamic programming
@@ -38,7 +37,7 @@ func SubsetSum(A []int, sum int) bool {
 func SubsetSumD(A []int, sum int) bool {
 	rows := len(A)
 	columns := sum + 1
-	sm := util.GetMatrix(rows, columns)
+	sm := utils.GetMatrix(rows, columns)
 	for i := 0; i < len(A); i++ {
 		sm[i][0] = 1
 	}
@@ -74,7 +73,7 @@ Approach :
 */
 func LargestSumSubArray(a []int) {
 	//StringJoiner stringJoiner=new StringJoiner(", ");
-	util.Printable(a, 0, len(a)-1)
+	utils.Printable(a, 0, len(a)-1)
 	sum := 0
 	fidx := 0
 	toIdx := 0
@@ -129,7 +128,7 @@ func longIncreasingSubseq(A []int, cidx, lastidx int) int {
 	}
 	excludingCount := longIncreasingSubseq(A, cidx, cidx)
 	// Max(exclusion, inclusion)
-	return util.MaxOf(includingCount, excludingCount)
+	return utils.MaxOf(includingCount, excludingCount)
 }
 
 /*
