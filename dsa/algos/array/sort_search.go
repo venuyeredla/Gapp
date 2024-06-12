@@ -75,7 +75,7 @@ func Sort(input []int, algo Salgo) {
 
 func QuickSort(input []int, left, right int) {
 	if left < right {
-		pivot := quickPartition(input, left, right)
+		pivot := getPivot(input, left, right)
 		fmt.Printf("Left=[%v, %v], Right=[%v,%v] \n", left, pivot-1, pivot+1, right)
 		QuickSort(input, left, pivot-1)
 		QuickSort(input, pivot+1, right)
@@ -83,7 +83,7 @@ func QuickSort(input []int, left, right int) {
 
 }
 
-func quickPartition(input []int, left, right int) int {
+func getPivot(input []int, left, right int) int {
 	pivot := input[right]
 	i := left - 1
 	for j := left; j < right; j++ {
@@ -447,34 +447,4 @@ func Jump(nums []int) bool {
 		}
 	}
 	return temp[0]
-}
-
-func Dummy(nums1 []int, nums2 []int) float64 {
-	last1, last2, sum := 0, 0, 0
-	len1, len2 := len(nums1), len(nums2)
-	if len1 > 0 && len2 > 0 {
-		last1 = nums1[len1-1]
-		last2 = nums2[len2-1]
-		if last1 > last2 {
-			sum = (last1 * (last1 + 1)) / 2
-		} else {
-			sum = (last2 * (last2 + 1)) / 2
-		}
-		return float64(sum) / float64(len1+len2)
-	} else if len(nums1) > 0 {
-		if (len1) == 1 {
-			return float64(nums1[0])
-		}
-		last1 = nums1[len1-1]
-		sum = (last1 * (last1 + 1)) / 2
-		return float64(sum) / float64(len1)
-	} else if len(nums2) > 0 {
-		if (len2) == 1 {
-			return float64(nums2[0])
-		}
-		last2 = nums2[len2-1]
-		sum = (last2 * (last2 + 1)) / 2
-		return float64(sum) / float64(len2)
-	}
-	return float64(0)
 }

@@ -10,7 +10,7 @@ import (
  let x => x^x =0
  Let x,y,z numbers   x^y=z  => z^x=y or z^y=x
  Flip(x)= ^x
-  Even(x)= x&1==1
+  Even(x)= x&1==0
 
  Shifting left/right (Unsigned numbers also)
  Bit Masking.
@@ -22,9 +22,6 @@ Note :: odd or even number of times counting can be done with xor operator
 1's compliment : Flipping bits
 2's compliment : Flipping bits and adding 1 gives complment.
 
-
-*/
-
 /* Standard problem
 1. Counting bits which set to 1.
 2. Clear the lowest set bit.
@@ -35,18 +32,6 @@ Note :: odd or even number of times counting can be done with xor operator
 8. Compute x*y or x/y without using arthmetic operators.
 
 */
-
-func flip(x byte) byte {
-	return ^x
-}
-
-func IsEven(x int) bool {
-	return x&1 == 1
-}
-
-func IsPowerof2(x int) bool {
-	return x&(x-1) == 0
-}
 
 // Change Lowest set bit
 // Another approach x & (x-1)
@@ -164,6 +149,7 @@ func SwapBits(x, i, j int) int {
 }
 
 func ToBinary(num int) string {
+
 	if num == 0 {
 		return "0"
 	}

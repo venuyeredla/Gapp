@@ -54,5 +54,4 @@ func TestLSB(t *testing.T) {
 	for _, v := range Input() {
 		fmt.Printf(" LSB(%08b)=%08b \n", v, LSB(v))
 	}
-
 }

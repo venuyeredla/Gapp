@@ -1,5 +1,8 @@
+package array
 
-# Array Notes
+/*
+
+ Array Notes
 
 1. Soring => Binary search.
 2. indexer movenet from beginning or end
@@ -19,7 +22,7 @@
 
 4. Range sum queries.
    Datastructures : Prfix sum array, Heaps and segment trees, Binary indexed Tree.
-5. Sum problems 
+5. Sum problems
     x+y= Z, x+y+z=k
 
 6. Compute next permutation, kth permutation, previous permuation,random permutation
@@ -29,3 +32,4 @@ Multi dimensional arrays
 2d,
 Multiplication,Rotation etc...
 
+*/
