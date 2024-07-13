@@ -10,7 +10,7 @@ import (
 
 func Logging(ginHandler gin.HandlerFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		log.Printf("Before = %v", c.Request.URL.Path)
+		log.Printf("Requested URL before processing = %v", c.Request.URL.Path)
 		ginHandler(c)
 		log.Printf("After = %v", c.Request.URL.Path)
 	}

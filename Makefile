@@ -4,5 +4,5 @@ Hello :
 Run:
 	go run GoApp.go
 
-build:
-	go bulid 
+Build:
+	go bulid

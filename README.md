@@ -57,7 +57,6 @@ https://github.com/confluentinc/confluent-kafka-go
 
 Mail library : 
 
-
 Logging 
 splunk.
 Data dog.
