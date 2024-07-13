@@ -3,10 +3,9 @@ package hashing
 import (
 	"testing"
 
-	trand "Gapp/dsa/rand"
-	"Gapp/dsa/test"
 	"Gapp/dsa/tree/binary"
 	. "Gapp/dsa/types"
+	"Gapp/dsa/utils"
 	crand "crypto/rand"
 	eb "encoding/binary"
 	mrand "math/rand"
@@ -17,14 +16,14 @@ var rand *mrand.Rand
 func init() {
 	seed := make([]byte, 8)
 	if _, err := crand.Read(seed); err == nil {
-		rand = trand.ThreadSafeRand(int64(eb.BigEndian.Uint64(seed)))
+		rand = utils.ThreadSafeRand(int64(eb.BigEndian.Uint64(seed)))
 	} else {
 		panic(err)
 	}
 }
 
 func randstr(length int) String {
-	return String(test.RandStr(length))
+	return String(utils.RandStr(length))
 }
 
 func TestMake(t *testing.T) {

@@ -1,35 +1,33 @@
 package bptree
 
 import (
+	"encoding/binary"
+	"math/rand"
+
 	"sort"
 	"testing"
 
-	crand "crypto/rand"
-	"encoding/binary"
-	mrand "math/rand"
-
-	trand "Gapp/dsa/rand"
-	stest "Gapp/dsa/test"
 	"Gapp/dsa/types"
+	"Gapp/dsa/utils"
 )
 
-var rand *mrand.Rand
+var testrand *rand.Rand
 
 func init() {
 	seed := make([]byte, 8)
-	if _, err := crand.Read(seed); err == nil {
-		rand = trand.ThreadSafeRand(int64(binary.BigEndian.Uint64(seed)))
+	if _, err := rand.Read(seed); err == nil {
+		testrand = utils.ThreadSafeRand(int64(binary.BigEndian.Uint64(seed)))
 	} else {
 		panic(err)
 	}
 }
 
 func randslice(length int) []byte {
-	return stest.RandSlice(length)
+	return utils.RandSlice(length)
 }
 
 func randstr(length int) types.String {
-	return types.String(stest.RandStr(length))
+	return types.String(utils.RandStr(length))
 }
 
 type Strings []types.String

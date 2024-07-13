@@ -1,8 +1,8 @@
 package list
 
 import (
-	trand "Gapp/dsa/rand"
 	"Gapp/dsa/types"
+	"Gapp/dsa/utils"
 	crand "crypto/rand"
 	"encoding/binary"
 	"encoding/hex"
@@ -16,7 +16,7 @@ var rand *mrand.Rand
 func init() {
 	seed := make([]byte, 8)
 	if _, err := crand.Read(seed); err == nil {
-		rand = trand.ThreadSafeRand(int64(binary.BigEndian.Uint64(seed)))
+		rand = utils.ThreadSafeRand(int64(binary.BigEndian.Uint64(seed)))
 	} else {
 		panic(err)
 	}

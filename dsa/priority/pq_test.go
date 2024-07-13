@@ -1,7 +1,7 @@
 package heap
 
 import (
-	"Gapp/dsa/test"
+	"Gapp/dsa/utils"
 	"testing"
 )
 
@@ -42,7 +42,7 @@ func heap1(min bool) *Heap {
 }
 
 func TestMaxFixUp(x *testing.T) {
-	t := (*test.T)(x)
+	t := (*utils.T)(x)
 	h := heap1(false)
 	t.Log(h)
 	h.list[10].priority = 30
@@ -52,7 +52,7 @@ func TestMaxFixUp(x *testing.T) {
 }
 
 func TestMinFixUp(x *testing.T) {
-	t := (*test.T)(x)
+	t := (*utils.T)(x)
 	h := heap1(true)
 	t.Log(h)
 	h.list[10].priority = 1
@@ -62,7 +62,7 @@ func TestMinFixUp(x *testing.T) {
 }
 
 func TestMaxFixDown(x *testing.T) {
-	t := (*test.T)(x)
+	t := (*utils.T)(x)
 	h := heap1(false)
 	t.Log(h)
 	h.list[0].priority = 0
@@ -73,7 +73,7 @@ func TestMaxFixDown(x *testing.T) {
 }
 
 func TestMinFixDown(x *testing.T) {
-	t := (*test.T)(x)
+	t := (*utils.T)(x)
 	h := heap1(true)
 	t.Log(h)
 	h.list[0].priority = 30
@@ -84,7 +84,7 @@ func TestMinFixDown(x *testing.T) {
 }
 
 func TestPushMax(x *testing.T) {
-	t := (*test.T)(x)
+	t := (*utils.T)(x)
 	h := NewHeap(12, false)
 	h.Push(18, "g")
 	h.Push(7, "e")
@@ -103,7 +103,7 @@ func TestPushMax(x *testing.T) {
 }
 
 func TestPushMin(x *testing.T) {
-	t := (*test.T)(x)
+	t := (*utils.T)(x)
 	h := NewHeap(12, true)
 	h.Push(18, "g")
 	h.Push(7, "e")

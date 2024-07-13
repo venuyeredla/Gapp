@@ -3,7 +3,7 @@ package utils
 import (
 	"fmt"
 	"math"
-	"math/rand"
+	mathrand "math/rand"
 	"strings"
 	"time"
 )
@@ -47,10 +47,10 @@ func GenArray(size int, max int) []int {
 	// balance := [5]float32{1000.0, 2.0, 3.4, 7.0, 50.0}  // static arry with intialization of values.
 	//var generated [5]int // fixed array size declaration
 	var generated []int //If size don't mentined it will become slice. Before using slice need to intilaize.
-	rand.Seed(time.Now().UnixMilli())
+	mathrand.Seed(time.Now().UnixMilli())
 	generated = make([]int, size)
 	for i := 0; i < size; i++ {
-		generated[i] = rand.Intn(20)
+		generated[i] = mathrand.Intn(20)
 	}
 	return generated
 }

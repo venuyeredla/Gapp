@@ -1,9 +1,8 @@
 package binary
 
 import (
-	trand "Gapp/dsa/rand"
-	"Gapp/dsa/test"
 	"Gapp/dsa/types"
+	"Gapp/dsa/utils"
 	crand "crypto/rand"
 	eb "encoding/binary"
 	"fmt"
@@ -266,14 +265,14 @@ var rand *mrand.Rand
 func init() {
 	seed := make([]byte, 8)
 	if _, err := crand.Read(seed); err == nil {
-		rand = trand.ThreadSafeRand(int64(eb.BigEndian.Uint64(seed)))
+		rand = utils.ThreadSafeRand(int64(eb.BigEndian.Uint64(seed)))
 	} else {
 		panic(err)
 	}
 }
 
 func randstr(length int) types.String {
-	return types.String(test.RandStr(length))
+	return types.String(utils.RandStr(length))
 }
 
 func TestAvlPutHasGetRemove(t *testing.T) {

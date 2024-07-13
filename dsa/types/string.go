@@ -8,64 +8,64 @@ import (
 type String string
 type ByteSlice []byte
 
-func (self String) Equals(other Equatable) bool {
+func (str String) Equals(other Equatable) bool {
 	if o, ok := other.(String); ok {
-		return self == o
+		return str == o
 	} else {
 		return false
 	}
 }
 
-func (self String) Less(other Sortable) bool {
+func (str String) Less(other Sortable) bool {
 	if o, ok := other.(String); ok {
-		return self < o
+		return str < o
 	} else {
 		return false
 	}
 }
 
-func (self String) Hash() int {
+func (str String) Hash() int {
 	h := fnv.New32a()
-	h.Write([]byte(string(self)))
+	h.Write([]byte(string(str)))
 	return int(h.Sum32())
 }
 
-func (self ByteSlice) Equals(other Equatable) bool {
+func (str ByteSlice) Equals(other Equatable) bool {
 	if o, ok := other.(ByteSlice); ok {
-		return bytes.Equal(self, o)
+		return bytes.Equal(str, o)
 	} else {
 		return false
 	}
 }
 
-func (self ByteSlice) Less(other Sortable) bool {
+func (str ByteSlice) Less(other Sortable) bool {
 	if o, ok := other.(ByteSlice); ok {
-		return bytes.Compare(self, o) < 0 // -1 if a < b
+		return bytes.Compare(str, o) < 0 // -1 if a < b
 	} else {
 		return false
 	}
 }
 
-func (self ByteSlice) Hash() int {
+func (str ByteSlice) Hash() int {
 	h := fnv.New32a()
-	h.Write([]byte(self))
+	h.Write([]byte(str))
 	return int(h.Sum32())
 }
 
-func (self *String) MarshalBinary() ([]byte, error) {
-	return []byte(*self), nil
+func (str *String) MarshalBinary() ([]byte, error) {
+	return []byte(*str), nil
 }
 
-func (self *String) UnmarshalBinary(data []byte) error {
-	*self = String(data)
+func (str *String) UnmarshalBinary(data []byte) error {
+	*str = String(data)
 	return nil
 }
 
-func (self *ByteSlice) MarshalBinary() ([]byte, error) {
-	return []byte(*self), nil
+func (str *ByteSlice) MarshalBinary() ([]byte, error) {
+	return []byte(*str), nil
 }
 
-func (self *ByteSlice) UnmarshalBinary(data []byte) error {
-	*self = ByteSlice(data)
+func (str *ByteSlice) UnmarshalBinary(data []byte) error {
+	*str = ByteSlice(data)
 	return nil
 }
