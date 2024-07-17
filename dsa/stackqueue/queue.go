@@ -3,52 +3,40 @@ package stackqueue
 
 import "container/list"
 
-// Q is the internal representation of the data structure.
 type Queue struct {
 	l *list.List
 }
 
-// Init initializes the queue data structure.
-// A queue must be initialized before it can be used.
-// O(1)
-func (q *Queue) Init() {
-	q.l = list.New()
+func (queue *Queue) Init() {
+	queue.l = list.New()
 }
 
 func NewQueue() *Queue {
 	return &Queue{l: list.New()}
 }
 
-// Push enqueues an element to the queue.
-// O(1)
-func (q *Queue) Push(v interface{}) {
-	q.l.PushFront(v)
+func (queue *Queue) Push(v interface{}) {
+	queue.l.PushFront(v)
 }
 
-// Pop dequeues an element from the queue.
-// O(1)
-func (q *Queue) Pop() interface{} {
-	if q.l.Len() == 0 {
+func (queue *Queue) Pop() interface{} {
+	if queue.l.Len() == 0 {
 		return nil
 	}
 
-	v := q.l.Back()
-	return q.l.Remove(v)
+	v := queue.l.Back()
+	return queue.l.Remove(v)
 }
 
-// Len returns the number of elements in the queue.
-// O(1)
-func (q *Queue) Len() int {
-	return q.l.Len()
+func (queue *Queue) IsEmpty() bool {
+	return queue.l.Len() == 0
 }
 
-// IsEmpty returns true the queue has no elements.
-// O(1)
-func (q *Queue) IsEmpty() bool {
-	return q.l.Len() == 0
+func (queue *Queue) Len() int {
+	return queue.l.Len()
 }
 
-func (q *Queue) hasKey(key string) bool {
+func (queue *Queue) hasKey(key string) bool {
 	return true
 }
 func (q *Queue) removeKey(key string) bool {

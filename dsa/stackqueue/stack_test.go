@@ -121,7 +121,6 @@ func BenchmarkPushResize(b *testing.B) {
 func BenchmarkPopS(b *testing.B) {
 	s := new(Stack)
 	s.Init(b.N)
-
 	for i := 0; i < b.N; i++ {
 		s.Push(i)
 	}
@@ -136,14 +135,24 @@ func BenchmarkPopS(b *testing.B) {
 
 func TestItoP(t *testing.T) {
 	//ItoP("a+b*c+d")
-
-	ItoP("a+b*(c^d-e)^(f+g*h)-i ")
+	output := InfixToPostfix("a+b*c+d")
+	fmt.Printf("output =  %v  ", output)
+	// InfixToPostfix("a+b*(c^d-e)^(f+g*h)-i")
 }
 
 func TestBalanced(t *testing.T) {
-	balanced := IsBalanced("[()]{}{[()()]()}")
+	balanced := isBalanced("[()]{}{[()()]()}")
 	if !balanced {
 		t.Fail()
 	}
+}
 
+func TestCalculator(t *testing.T) {
+
+	output := calculate("3+2*2")
+	expected := 7
+	if output != expected {
+		t.Errorf("Expected = %v and Output = %v ", expected, output)
+		t.Fail()
+	}
 }

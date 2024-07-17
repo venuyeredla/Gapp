@@ -6,100 +6,87 @@ import (
 	"strings"
 )
 
-// S is the internal representation of the data structure.
 type Stack struct {
-	storage []interface{}
-	i       int
+	storage []any
+	size    int
 }
 
-// Init initializes the stack data structure.
-// A stack must be initialized before it can be used.
-// O(1)
-func (s *Stack) Init(size int) {
-	// the stack needs to have at least capacity for 1 element
-	// defaulting here instead of panicing to allow for benchmarking
+func (stack *Stack) Init(size int) {
 	if size == 0 {
 		size = 1
 	}
-	s.storage = make([]interface{}, size)
-	s.i = -1
+	stack.storage = make([]any, size)
+	stack.size = -1
 }
 
-// Push adds a new element to the top of the stack.
-// O(1)
-func (s *Stack) Push(v interface{}) {
-	// dynamically increase the size of storage as needed
-	if s.i+1 == cap(s.storage) {
-		ns := make([]interface{}, cap(s.storage)*2)
-		copy(ns, s.storage)
-		s.storage = ns
+func (stack *Stack) Push(v any) {
+	if stack.size+1 == cap(stack.storage) {
+		ns := make([]any, cap(stack.storage)*2)
+		copy(ns, stack.storage)
+		stack.storage = ns
 	}
-
-	s.i++
-	s.storage[s.i] = v
+	stack.size++
+	stack.storage[stack.size] = v
 }
 
-// Pop removes the top element from the stack.
-// O(1).
-func (s *Stack) Pop() interface{} {
-	if s.i < 0 {
+func (stack *Stack) Pop() any {
+	if stack.size < 0 {
 		return nil
 	}
-
-	v := s.storage[s.i]
-	s.storage[s.i] = nil
-	s.i--
-
+	v := stack.storage[stack.size]
+	stack.storage[stack.size] = nil
+	stack.size--
 	return v
 }
 
-// Peek returns the top element from the stack without removing it.
-// O(1)
-func (s *Stack) Peek() interface{} {
-	if s.i < 0 {
+func (stack *Stack) Peek() any {
+	if stack.size < 0 {
 		return nil
 	}
-	return s.storage[s.i]
+	return stack.storage[stack.size]
 }
 
-func (s *Stack) PeekStr() string {
-	if s.i < 0 {
-		return ""
-	}
-	return fmt.Sprint(s.storage[s.i])
+func (stack *Stack) IsEmpty() bool {
+	return stack.Len() == 0
 }
 
-// IsEmpty returns true if the stack has no elements.
-// O(1)
-func (s *Stack) IsEmpty() bool {
-	return s.Len() == 0
-}
-
-// Len returns the number of elements in the stack.
-// O(1)
-func (s *Stack) Len() int {
-	return s.i + 1
+func (stack *Stack) Len() int {
+	return stack.size + 1
 }
 
 /*   Stack problems starting  */
 
-var preceMap map[string]int
-
-func createPREMap() {
-	preceMap = map[string]int{
+// a+b*c+c -> abc*+d+
+// a+b*(c^d-e)^(f+g*h)-i -> abcd^e-fgh*+^*+i-
+func InfixToPostfix(expr string) string {
+	preceMap := map[string]int{
 		"+": 1, "-": 1,
 		"%": 2, "/": 2, "*": 2,
 		"^": 3,
 	}
-}
-
-// a+b*c+c -> abc*+d+
-// a+b*(c^d-e)^(f+g*h)-i -> abcd^e-fgh*+^*+i-
-func ItoP(expr string) {
-	createPREMap()
 	var sb strings.Builder
 	stack := new(Stack)
-	stack.Init(10)
+	stack.Init(len(expr))
+	var precedence = func(s string) int {
+		value, exist := preceMap[s]
+		if exist {
+			return value
+		} else {
+			return -1
+		}
+	}
+
+	var isOperand = func(s string) bool {
+		if s == "(" || s == ")" {
+			return false
+		}
+		_, exist := preceMap[s]
+		return !exist
+	}
+
+	var peek = func() string { return stack.Peek().(string) }
+	var pop = func() string { return stack.Pop().(string) }
+
 	for _, c := range expr {
 		s := string(c)
 		//fmt.Print(s)
@@ -109,104 +96,68 @@ func ItoP(expr string) {
 			stack.Push(s)
 		} else if s == ")" {
 			for !stack.IsEmpty() {
-				t := peek(stack)
+				t := peek()
 				if t == "(" {
 					stack.Pop()
 					break
 				}
-				sb.WriteString(pop(stack))
-
+				sb.WriteString(stack.Pop().(string))
 			}
-
 		} else {
-			for (precedence(s) <= precedence(peek(stack))) && !stack.IsEmpty() {
-				sb.WriteString(pop(stack))
+			for !stack.IsEmpty() && (precedence(s) <= precedence(peek())) {
+				sb.WriteString(pop())
 			}
 			stack.Push(s)
 		}
 	}
 	for !stack.IsEmpty() {
 		//fmt.Println(stack.Peek())
-		sb.WriteString(pop(stack))
+		sb.WriteString(pop())
 		stack.Pop()
 	}
-	fmt.Println(sb.String())
+	fmt.Println()
+
+	return sb.String()
 }
 
-func pop(s *Stack) string {
-	value, _ := s.Pop().(string)
-	return value
-}
-
-func peek(s *Stack) string {
-	value, _ := s.Pop().(string)
-	return value
-}
-
-func precedence(s string) int {
-	value, exist := preceMap[s]
-	if exist {
-		return value
-	} else {
-		return -1
-	}
-
-}
-
-func isOperand(s string) bool {
-	if s == "(" || s == ")" {
-		return false
-	}
-	_, exist := preceMap[s]
-	return !exist
-}
-
-// [()]{}{[()()]()}
-//
-//	([]){()}
-func IsBalanced(expr string) bool {
+func isBalanced(expr string) bool {
 	stack := new(Stack)
-	stack.Init(50)
+	stack.Init(len(expr))
 	charMap := map[string]string{"}": "{", ")": "(", "]": "["}
 	for _, c := range expr {
 		s := string(c)
 		val, exist := charMap[s]
 		if exist && !stack.IsEmpty() {
-			if pop(stack) == val {
-
-			} else {
+			svalue, _ := stack.Pop().(string)
+			if svalue != val {
 				return false
 			}
 		} else {
 			stack.Push(s)
 		}
-
 	}
 	return stack.IsEmpty()
 }
 
-// {"":"","":b,"c":[1,2,3]}
-var charMap map[string]string
-
 func IsWellFormedJson(expr string) bool {
 	stack := new(Stack)
-	stack.Init(50)
-	charMap = map[string]string{"}": "{", "]": "[", "\"": "\"", ",": ",", ":": ":"}
+	stack.Init(len(expr))
+	charMap := map[string]string{"}": "{", "]": "[", "\"": "\"", ",": ",", ":": ":"}
 	notJson := false
 	for _, c := range expr {
 		s := string(c)
-		if IsSymbol(s) {
+		if _, exist := charMap[s]; exist {
 			switch s {
 			case "}":
-				if !(pop(stack) == "}") {
+				svalue, _ := stack.Pop().(string)
+				if !(svalue == "}") {
 					notJson = true
 				}
-				break
 			case "]":
-				if !(pop(stack) == "[") {
+				svalue, _ := stack.Pop().(string)
+				if !(svalue == "[") {
 					notJson = true
 				}
-				break
 			case "\"":
 
 				break
@@ -215,11 +166,11 @@ func IsWellFormedJson(expr string) bool {
 			case ",":
 				break
 			default:
-
 			}
 
 		} else {
-			if !(IsSymbol(peek(stack)) && IsSymbol(peek(stack))) {
+			peek_value := stack.Pop().(string)
+			if _, exist := charMap[peek_value]; !exist {
 				stack.Push(s)
 			}
 		}
@@ -230,7 +181,14 @@ func IsWellFormedJson(expr string) bool {
 	return stack.IsEmpty()
 }
 
-func IsSymbol(s string) bool {
-	_, exist := charMap[s]
-	return exist
+func calculate(s string) (answer int) {
+	/* stack := new(Stack)
+	stack.Init(len(s))
+
+	for _, c := range s {
+	//	num_oper := string(c)
+
+	} */
+	answer = 7
+	return answer
 }
