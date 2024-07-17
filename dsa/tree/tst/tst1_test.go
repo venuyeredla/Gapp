@@ -10,9 +10,8 @@ import (
 	"encoding/binary"
 	mrand "math/rand"
 
-	trand "Gapp/dsa/ds/rand"
-	"Gapp/dsa/ds/test"
-	"Gapp/dsa/ds/types"
+	"Gapp/dsa/types"
+	"Gapp/dsa/utils"
 )
 
 var rand *mrand.Rand
@@ -20,18 +19,18 @@ var rand *mrand.Rand
 func init() {
 	seed := make([]byte, 8)
 	if _, err := crand.Read(seed); err == nil {
-		rand = trand.ThreadSafeRand(int64(binary.BigEndian.Uint64(seed)))
+		rand = utils.ThreadSafeRand(int64(binary.BigEndian.Uint64(seed)))
 	} else {
 		panic(err)
 	}
 }
 
 func randslice(length int) []byte {
-	return test.RandSlice(length)
+	return utils.RandSlice(length)
 }
 
 func randstr(length int) types.String {
-	return types.String(test.RandStr(length))
+	return types.String(utils.RandStr(length))
 }
 
 func has_zero(bytes []byte) bool {

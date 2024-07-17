@@ -23,15 +23,15 @@ Min-heap(), Max-heap()
 */
 
 type entry struct {
-	item     interface{}
+	item     any
 	priority int
 }
 
 type PriorityQueue interface {
 	types.Sized
 	Push(priority int, item interface{})
-	Peek() interface{}
-	Pop() interface{}
+	Peek() any
+	Pop() any
 }
 
 // Notes:

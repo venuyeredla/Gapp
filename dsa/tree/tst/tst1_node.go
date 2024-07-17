@@ -1,8 +1,8 @@
 package tst
 
 import (
-	"Gapp/dsa/ds/errors"
-	. "Gapp/dsa/ds/types"
+	"Gapp/dsa/errors"
+	. "Gapp/dsa/types"
 	"fmt"
 )
 

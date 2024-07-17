@@ -15,10 +15,43 @@
 package list
 
 import (
+	"Gapp/dsa/types"
+	"Gapp/dsa/utils"
+	crand "crypto/rand"
+	"encoding/binary"
+	"encoding/hex"
 	"fmt"
+	mrand "math/rand"
 	"sort"
 	"testing"
 )
+
+var rand *mrand.Rand
+
+func init() {
+	seed := make([]byte, 8)
+	if _, err := crand.Read(seed); err == nil {
+		rand = utils.ThreadSafeRand(int64(binary.BigEndian.Uint64(seed)))
+	} else {
+		panic(err)
+	}
+}
+
+func randstr(length int) types.String {
+	slice := make([]byte, length)
+	if _, err := crand.Read(slice); err != nil {
+		panic(err)
+	}
+	return types.String(slice)
+}
+
+func randhex(length int) types.String {
+	slice := make([]byte, length/2)
+	if _, err := crand.Read(slice); err != nil {
+		panic(err)
+	}
+	return types.String(hex.EncodeToString(slice))
+}
 
 func (s *SkipList) printRepr() {
 

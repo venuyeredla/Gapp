@@ -1,12 +1,12 @@
 package tst
 
 import (
-	"Gapp/dsa/ds/errors"
-	"Gapp/dsa/ds/tree"
+	"Gapp/dsa/errors"
+	"Gapp/dsa/tree"
 	"fmt"
 	"strings"
 
-	. "Gapp/dsa/ds/types"
+	. "Gapp/dsa/types"
 )
 
 type TST struct {
@@ -94,7 +94,7 @@ func (self *TST) Remove(key []byte) (value interface{}, err error) {
 			return nil, err
 		} else if n == nil {
 			return nil, nil
-		} else if !n.Internal() && n.key == nil {
+		} else if !n.Internal() /*&& n.key == nil commented by me */ {
 			return nil, nil
 		}
 		return n, nil
