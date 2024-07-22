@@ -1,5 +1,4 @@
-// Package queue implements a queue.
-package stackqueue
+package stack_queue
 
 import "container/list"
 

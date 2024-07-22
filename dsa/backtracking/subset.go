@@ -22,7 +22,6 @@ func PowerSet(arr []int, nofSubsets int, collector *utils.Collector) {
 		sb.WriteString("}")
 		collector.Append(sb.String())
 	}
-
 }
 
 // Sets containing element and not containg element.

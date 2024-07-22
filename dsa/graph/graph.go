@@ -1,7 +1,7 @@
 package graph
 
 import (
-	"Gapp/dsa/stackqueue"
+	"Gapp/dsa/stack_queue"
 	"fmt"
 )
 
@@ -37,7 +37,7 @@ func GraphWithEdges(noOfVertices int, directed bool, edges [][]int) *Graph {
 
 func (graph *Graph) BFS() {
 	visited := make([]bool, graph.Size)
-	queue := stackqueue.NewQueue()
+	queue := stack_queue.NewQueue()
 	queue.Push(graph.Vertices[0])
 	visited[0] = true
 	for !queue.IsEmpty() {
@@ -102,7 +102,7 @@ func MDFS(vertex int, visited []bool, graph [][]int) {
 
 func MBFS(start int, graph [][]int) {
 	visited := make([]bool, len(graph))
-	queue := stackqueue.NewQueue()
+	queue := stack_queue.NewQueue()
 	queue.Push(start)
 	visited[start] = true
 	for !queue.IsEmpty() {

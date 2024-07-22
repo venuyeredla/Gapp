@@ -1,8 +1,6 @@
 package array
 
 import (
-	heap "Gapp/dsa/priority"
-	"Gapp/dsa/types"
 	"Gapp/dsa/utils"
 	"fmt"
 )
@@ -186,39 +184,6 @@ func Rearrange(a []int) {
 
 		}
 	}
-}
-
-/*
-Approach 1 : Frequency map => Sort By Value => then pick top K elements.
-Approach 2 : using Priority queue.
-*/
-func KMostOccurance(a []int, k int) []int {
-
-	freqMap := make(map[int]int)
-	for _, v := range a {
-		_, present := freqMap[v]
-		if present {
-			freqMap[v]++
-		} else {
-			freqMap[v] = 1
-		}
-	}
-
-	pq := heap.NewMinHeap(10)
-
-	for k, v := range freqMap {
-		value := types.Int32(k)
-		pq.Push(v, value)
-	}
-	/*
-		sort.Ints(keys)
-		sort.SliceStable(keys, func(i, j int) bool {
-			return freqMap[keys[i]] > freqMap[keys[j]]
-		})
-	*/
-	result := make([]int, k)
-
-	return result
 }
 
 func BuyAndsell(s []int) int {

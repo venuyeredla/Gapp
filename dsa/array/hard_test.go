@@ -21,3 +21,13 @@ func TestDuplicate(t *testing.T) {
 		t.FailNow()
 	}
 }
+
+func TestMinJumps(t *testing.T) {
+	input := []int{1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9}
+	expected := 3
+	output := minJumpsRequred(input)
+	if output != expected {
+		t.Errorf("Expected = %v and Actual =%v", expected, output)
+		t.FailNow()
+	}
+}

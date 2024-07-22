@@ -1,5 +1,4 @@
-// Package stack implements a stack.
-package stackqueue
+package stack_queue
 
 import (
 	"fmt"
@@ -181,14 +180,29 @@ func IsWellFormedJson(expr string) bool {
 	return stack.IsEmpty()
 }
 
-func calculate(s string) (answer int) {
-	/* stack := new(Stack)
-	stack.Init(len(s))
+type StackEle struct {
+	Ele  int
+	Span int
+}
 
-	for _, c := range s {
-	//	num_oper := string(c)
-
-	} */
-	answer = 7
-	return answer
+func stackSpan(prices []int) []int {
+	spans := make([]int, len(prices))
+	stack := new(Stack)
+	stack.Init(len(prices))
+	for idx, val := range prices {
+		se := StackEle{Ele: val, Span: 1}
+		if stack.IsEmpty() {
+			stack.Push(se)
+		} else {
+			peekEle := stack.Peek().(StackEle)
+			if val >= peekEle.Ele {
+				se.Span = peekEle.Span + 1
+			} else {
+				spans[idx] = peekEle.Span
+				stack.Pop()
+			}
+			stack.Push(se)
+		}
+	}
+	return spans
 }

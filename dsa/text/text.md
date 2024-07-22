@@ -11,8 +11,6 @@
     a. length even and odd numbers of characters.
     b. Test Palindromicity or permute palindromicity
     c. Palindromic partitions.
-    d. 
-
 
 2. Substrings 
 
@@ -44,4 +42,4 @@ SpellChecker
 Stemming 
 Suggestions
 Full-text search engine.
-Implement PageRank 
+Implement PageRank

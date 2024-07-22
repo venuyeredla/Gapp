@@ -1,6 +1,7 @@
-package stackqueue
+package stack_queue
 
 import (
+	"Gapp/dsa/utils"
 	"fmt"
 	"testing"
 )
@@ -135,9 +136,14 @@ func BenchmarkPopS(b *testing.B) {
 
 func TestItoP(t *testing.T) {
 	//ItoP("a+b*c+d")
-	output := InfixToPostfix("a+b*c+d")
-	fmt.Printf("output =  %v  ", output)
-	// InfixToPostfix("a+b*(c^d-e)^(f+g*h)-i")
+	inputs := []string{"a+b*c+d", "((a+b)-c*(d/e))+f"}
+	outputs := []string{"abc*+d+", "ab+cde/*-f+"}
+	for idx, input := range inputs {
+		output := InfixToPostfix(input)
+		if outputs[idx] != output {
+			t.Errorf("Input =%v , Expected= %v   , Output= %v", input, outputs[idx], output)
+		}
+	}
 }
 
 func TestBalanced(t *testing.T) {
@@ -147,12 +153,9 @@ func TestBalanced(t *testing.T) {
 	}
 }
 
-func TestCalculator(t *testing.T) {
-
-	output := calculate("3+2*2")
-	expected := 7
-	if output != expected {
-		t.Errorf("Expected = %v and Output = %v ", expected, output)
-		t.Fail()
-	}
+func TestStackSpan(t *testing.T) {
+	input := []int{100, 80, 60, 70, 60, 75, 85} // 1, 0, 2
+	expected := []int{1, 1, 1, 2, 1, 4, 6}
+	output := stackSpan(input)
+	utils.AssertEquals(expected, output, false)
 }

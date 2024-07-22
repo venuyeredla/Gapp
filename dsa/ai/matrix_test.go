@@ -7,7 +7,8 @@ import (
 
 func TestMatrix(t *testing.T) {
 
-	Matrix := [][]int{{2, 5, 8}, {4, 0, -1}}
+	Matrix := [][]int{{2, 5, 8},
+		{4, 0, -1}}
 
 	/*Matrix := [][]int{
 		{1, 2, 3, 4},
@@ -20,7 +21,11 @@ func TestMatrix(t *testing.T) {
 
 	{13, 14, 15, 16}
 	*/
-	fmt.Printf("Output = %v", SpiralForm(Matrix))
+	result := SpiralForm2(Matrix)
+	for _, v := range result {
+		fmt.Printf("%v, ", v)
+	}
+
 }
 
 func TestMatrixRotation(t *testing.T) {

@@ -2,7 +2,7 @@ package binary
 
 import (
 	"Gapp/dsa/errors"
-	"Gapp/dsa/stackqueue"
+	"Gapp/dsa/stack_queue"
 	"Gapp/dsa/tree"
 	"Gapp/dsa/types"
 )
@@ -199,7 +199,7 @@ func (self *BinaryNode) LevelPut(key types.Hashable, value interface{}) (r *Bina
 		updated = true
 		return r, updated
 	}
-	queue := new(stackqueue.Queue)
+	queue := new(stack_queue.Queue)
 	queue.Init()
 	queue.Push(self)
 
