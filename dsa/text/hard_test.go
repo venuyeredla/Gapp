@@ -13,9 +13,12 @@ func TestTextJustify(t *testing.T) {
 	}
 }
 
+/*
 func TestConcatanation(t *testing.T) {
 	words := []string{"word", "good", "best", "good"}
 	str := "wordgoodgoodgoodbestword" // 18 [0,9]
 	output := findSubstring(str, words)
 	fmt.Println(output)
 }
+
+*/

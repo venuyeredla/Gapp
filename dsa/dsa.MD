@@ -14,8 +14,11 @@ Brute Force method. Also know as exhaustive search or generate-and-test. By usin
 	 Predominantly for pairs, duplicate removal, non repeating.
 	 Instead of deleting an element consider rewriting using two pointer approach.
 
+	 Fast & slow pointers for loop detection. (list)
+
 3. Sliding window 
 	Max/Min sum sub array problems
+	Substring problems
 
 4. Hashing
 	Hash function.  h(x) => {x /n |  maps to index of hash table}
@@ -84,6 +87,13 @@ Decision, Optimization, Enumeration problems can be solved with this approach.	2
 	6. Offline-caching.
 
 
+## Others 
+	Intervals
+	Cyclic Sort
+
+
+
+
 ## Data structures
 1. Min, Max or Kth min/max Heaps /prioity queues. (Treap)
 2. Range sum queries :  Prfix sum, Segment tree (Full binary trees), Binary Indexed Tree (BIT)
@@ -102,6 +112,8 @@ Fundamental abstract types.
 
 4. Retrieval based structures.
 	Stack / LIFO  (DFS, Recursion replacement)
+		- Balanced paranthesis, Recursion
+
 	Queue /  FIFO  (Uses in DFS)
 
 5. Membership queries : Sets, Bitset, Bloom filters.
@@ -132,9 +144,6 @@ Counting rules.
 	1.  Each simple operation (+, *, –, =, if, call) takes exactly one time step. 	
     2.  Loops and subroutines are O(n). 
 	3. Each memory access takes exactly one time step.
-
-
-
 
 ## Problem Analysis patterns.
 

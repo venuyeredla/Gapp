@@ -6,19 +6,6 @@ import (
 	"fmt"
 )
 
-/*
-# Heaps
-1. Complete Binary tree.
-Min-heap(), Max-heap()
-
-# Problems.
-1. Merge sorted files.
-2. Priotiy queue.
-3. Sort increasng and decreasing
-4. Sort almost sorted array
-5. Implment stack API using heap API.
-*/
-
 type PqEntry struct {
 	Item     any
 	Priority int
@@ -55,46 +42,9 @@ func NewPQ(size int, is_min bool) *PriorityQueue {
 	}
 }
 
-// How many items in the heap?
-func (pq *PriorityQueue) Size() int {
-	return len(pq.list)
-}
-
-// Is this a min heap?
-func (pq *PriorityQueue) MinHeap() bool {
-	return pq.min
-}
-
-// Is this a max heap?
-func (pq *PriorityQueue) MaxHeap() bool {
-	return !pq.min
-}
-
 func (pq *PriorityQueue) Push(entry PqEntry) {
 	pq.list = append(pq.list, entry)
 	pq.fixUp(len(pq.list) - 1)
-}
-
-// Pop the highest (or lowest) priority item
-func (pq *PriorityQueue) Pop() PqEntry {
-	var entry PqEntry
-	if len(pq.list) == 0 {
-		return entry
-	}
-	entry = pq.list[0]
-	pq.list[0] = pq.list[len(pq.list)-1]
-	pq.list = pq.list[:len(pq.list)-1]
-	pq.fixDown(0)
-	return entry
-}
-
-// Peek at the highest (or lowest) priority item
-func (pq *PriorityQueue) Peek() PqEntry {
-	var entry PqEntry
-	if len(pq.list) == 0 {
-		return entry
-	}
-	return pq.list[0]
 }
 
 // Notes:
@@ -113,6 +63,19 @@ func (h *PriorityQueue) fixUp(k int) {
 	}
 }
 
+// Pop the highest (or lowest) priority item
+func (pq *PriorityQueue) Pop() PqEntry {
+	var entry PqEntry
+	if len(pq.list) == 0 {
+		return entry
+	}
+	entry = pq.list[0]
+	pq.list[0] = pq.list[len(pq.list)-1]
+	pq.list = pq.list[:len(pq.list)-1]
+	pq.fixDown(0)
+	return entry
+}
+
 func (h *PriorityQueue) fixDown(k int) {
 	kid := (k+1)*2 - 1
 	for kid < len(h.list) {
@@ -126,6 +89,30 @@ func (h *PriorityQueue) fixDown(k int) {
 		k = kid
 		kid = (k+1)*2 - 1
 	}
+}
+
+// Peek at the highest (or lowest) priority item
+func (pq *PriorityQueue) Peek() PqEntry {
+	var entry PqEntry
+	if len(pq.list) == 0 {
+		return entry
+	}
+	return pq.list[0]
+}
+
+// How many items in the heap?
+func (pq *PriorityQueue) Size() int {
+	return len(pq.list)
+}
+
+// Is this a min heap?
+func (pq *PriorityQueue) MinHeap() bool {
+	return pq.min
+}
+
+// Is this a max heap?
+func (pq *PriorityQueue) MaxHeap() bool {
+	return !pq.min
 }
 
 func (h *PriorityQueue) gte(i, j int) bool {
@@ -248,4 +235,12 @@ func KthLargestSumSubArray(a []int, k int) int {
 		}
 	}
 	return pq.Pop().Priority
+}
+
+/*
+Sorting?
+*/
+func rearangeString(str string) string {
+
+	return ""
 }

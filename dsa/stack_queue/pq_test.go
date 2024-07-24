@@ -127,3 +127,9 @@ func TestKthSumSubArr(t *testing.T) {
 	result := KthLargestSumSubArray(arr, 6)
 	fmt.Println("Result = %V", result)
 }
+
+func TestRearrange(t *testing.T) {
+	input := "aaabc"
+	result := rearangeString(input)
+	fmt.Println("Result = %V", result)
+}

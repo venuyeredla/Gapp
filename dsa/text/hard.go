@@ -60,13 +60,13 @@ func justify(strs []string, scount int, isLast bool) string {
 Approach :Sliding window.
 
 1. Take substring of total lengths every time
-*/
+
 func findSubstring(s string, words []string) []int {
 	if len(words) == 0 || len(s) == 0 {
 		return []int{}
 	}
 	wl := len(words[0])
-	subLength := len(words) * wl
+	//subLength := len(words) * wl
 
 	var hash = func(s string) int {
 		hash := 0
@@ -96,14 +96,16 @@ func findSubstring(s string, words []string) []int {
 		return false
 	}
 	answer := make([]int, 0)
-	for i := 0; i <= len(s)-subLength; i = i + 0 {
-		if isValid(s[i : i+subLength]) {
-			answer = append(answer, i)
+	/* for i := 0; i <= len(s)-subLength; i = i + 0 {
+		if isValid(s[i : i+subLength])
+
+		answer = append(answer, i)
 			i = i + wl
 		} else {
 			i++
 		}
-
 	}
 	return answer
 }
+
+*/

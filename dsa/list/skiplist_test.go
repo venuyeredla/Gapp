@@ -12,7 +12,7 @@
 // Skip lists were first described in Pugh, William (June 1990). "Skip
 // lists: a probabilistic alternative to balanced
 // trees". Communications of the ACM 33 (6): 668–676
-package list
+package linked
 
 import (
 	"Gapp/dsa/types"
