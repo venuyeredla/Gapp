@@ -1,6 +1,7 @@
 package web
 
 import (
+	"Gapp/web/dbop"
 	"Gapp/web/handlers"
 	"log"
 	"net/http"
@@ -16,42 +17,58 @@ func Logging(ginHandler gin.HandlerFunc) gin.HandlerFunc {
 	}
 }
 
-func JwtValidate(f http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		log.Println(r.URL.Path)
-		f(w, r)
-		log.Println(r.URL.Path)
+func JwtValidate(ginHandler gin.HandlerFunc) gin.HandlerFunc {
+	return func(gctx *gin.Context) {
+		log.Printf("Request path is : %v", gctx.Request.URL.Path)
+		//Authorization: Bearer <token>
+		authHeader := gctx.Request.Header.Get("Authorization")
+		log.Printf("Authorization : %v", authHeader)
+		token := authHeader[7:]
+		claims := handlers.ParseToken(token)
+		if handlers.IsValidToken(claims) {
+			log.Printf("Token validation is sucessful")
+			ginHandler(gctx)
+		} else {
+			log.Printf("Token validation is failed")
+			eresp := &handlers.ErrorResponse{Msg: "Invalid credentials"}
+			gctx.JSON(http.StatusUnauthorized, eresp)
+		}
+		log.Println()
 	}
 }
 
-func ApiConfig() *gin.Engine {
+func ApplicationConfig() *gin.Engine {
 	log.Println("Setting up file server and api handlers")
+
+	dbop.IntializePool()
+	//defer dbop.ClosePool()
+
 	router := gin.Default()
 
 	//Static file handler
 	router.StaticFS("/wstatic/", http.Dir("wstatic/"))
 	router.StaticFile("/", "wstatic/index.html")
+
 	/*router.Static("/assets", "./assets")
 	router.StaticFile("/favicon.ico", "./resources/favicon.ico")
 	router.StaticFileFS("/more_favicon.ico", "more_favicon.ico", http.Dir("my_file_system"))
 	*/
 	var customerAPI handlers.CustomerAPI
-	router.GET("/api/authenticate", Logging(customerAPI.Authenticate))
-	router.POST("/api/signup", Logging(customerAPI.SignUp))
-	router.GET("/api/custinfo/:id", Logging(customerAPI.CustInfo))
+	router.POST("/api/auth", Logging(handlers.Authenticate))
+	router.POST("/api/signup", Logging(handlers.SignUp))
+	router.GET("/api/custinfo/:id", JwtValidate(customerAPI.CustInfo))
+
+	router.GET("/chat", handlers.WebChat)
 
 	//Generating entitre HTML using libraries
 	sc := &handlers.StatiContent{}
 	//sc.Preprocess()
 	router.LoadHTMLGlob("wstatic/*")
 	router.GET("/tmpl", Logging(sc.GenrateForm))
-
 	return router
 }
 
 /*
-
-
 func ConfigureHttp() {
 
 	func logging(f http.HandlerFunc) http.HandlerFunc {
@@ -86,8 +103,6 @@ func ConfigureHttp() {
 	http.ListenAndServe(":2023", nil)
 
 }
-
-
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,

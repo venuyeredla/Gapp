@@ -1,21 +1,35 @@
 package stack_queue
 
 import (
-	"fmt"
+	"Gapp/dsa/utils"
+	"strconv"
 	"strings"
 )
+
+/*
+
+   stack:=make([]string,0,len(s))
+   var peek=func() string { return stack[len(stack)-1]}
+   var push=func(ele string){ stack = append(stack, ele)}
+   var pop=func () string{
+       popped :=stack[len(stack)-1]
+       stack=stack[:len(stack)-1]
+        return popped
+   }
+
+*/
 
 type Stack struct {
 	storage []any
 	size    int
 }
 
-func (stack *Stack) Init(size int) {
+func NewStack(size int) *Stack {
 	if size == 0 {
 		size = 1
 	}
-	stack.storage = make([]any, size)
-	stack.size = -1
+	stack := &Stack{storage: make([]any, size), size: -1}
+	return stack
 }
 
 func (stack *Stack) Push(v any) {
@@ -63,9 +77,7 @@ func InfixToPostfix(expr string) string {
 		"%": 2, "/": 2, "*": 2,
 		"^": 3,
 	}
-	var sb strings.Builder
-	stack := new(Stack)
-	stack.Init(len(expr))
+	stack := NewStack(len(expr))
 	var precedence = func(s string) int {
 		value, exist := preceMap[s]
 		if exist {
@@ -85,7 +97,7 @@ func InfixToPostfix(expr string) string {
 
 	var peek = func() string { return stack.Peek().(string) }
 	var pop = func() string { return stack.Pop().(string) }
-
+	var sb strings.Builder
 	for _, c := range expr {
 		s := string(c)
 		//fmt.Print(s)
@@ -110,25 +122,47 @@ func InfixToPostfix(expr string) string {
 		}
 	}
 	for !stack.IsEmpty() {
-		//fmt.Println(stack.Peek())
 		sb.WriteString(pop())
-		stack.Pop()
 	}
-	fmt.Println()
-
 	return sb.String()
 }
 
+func calculate(s string) int {
+	operators := map[string]bool{"+": true, "-": true, "*": true, "/": true}
+	s = InfixToPostfix(s)
+	stack := NewStack(len(s))
+	for i := 0; i < len(s); i++ {
+		char := s[i : i+1]
+		if _, isoperator := operators[char]; isoperator {
+			b, _ := stack.Pop().(int)
+			a, _ := stack.Pop().(int)
+			switch char {
+			case "+":
+				stack.Push(a + b)
+			case "-":
+				stack.Push(a - b)
+			case "*":
+				stack.Push(a * b)
+			case "/":
+				stack.Push(a * b)
+			}
+		} else {
+			val, error := strconv.Atoi(char)
+			if error == nil {
+				stack.Push(val)
+			}
+		}
+	}
+	return stack.Pop().(int)
+}
+
 func isBalanced(expr string) bool {
-	stack := new(Stack)
-	stack.Init(len(expr))
+	stack := NewStack(len(expr))
 	charMap := map[string]string{"}": "{", ")": "(", "]": "["}
-	for _, c := range expr {
-		s := string(c)
-		val, exist := charMap[s]
-		if exist && !stack.IsEmpty() {
-			svalue, _ := stack.Pop().(string)
-			if svalue != val {
+	for i := range expr {
+		s := expr[i : i+1]
+		if val, exist := charMap[s]; exist && !stack.IsEmpty() {
+			if stack.Pop().(string) != val {
 				return false
 			}
 		} else {
@@ -139,8 +173,7 @@ func isBalanced(expr string) bool {
 }
 
 func IsWellFormedJson(expr string) bool {
-	stack := new(Stack)
-	stack.Init(len(expr))
+	stack := NewStack(len(expr))
 	charMap := map[string]string{"}": "{", "]": "[", "\"": "\"", ",": ",", ":": ":"}
 	notJson := false
 	for _, c := range expr {
@@ -180,29 +213,39 @@ func IsWellFormedJson(expr string) bool {
 	return stack.IsEmpty()
 }
 
-type StackEle struct {
-	Ele  int
-	Span int
-}
-
 func stackSpan(prices []int) []int {
 	spans := make([]int, len(prices))
-	stack := new(Stack)
-	stack.Init(len(prices))
-	for idx, val := range prices {
-		se := StackEle{Ele: val, Span: 1}
-		if stack.IsEmpty() {
-			stack.Push(se)
-		} else {
-			peekEle := stack.Peek().(StackEle)
-			if val >= peekEle.Ele {
-				se.Span = peekEle.Span + 1
-			} else {
-				spans[idx] = peekEle.Span
-				stack.Pop()
-			}
-			stack.Push(se)
+	for i := 0; i < len(prices); i++ {
+		span := 1
+		j := i - 1
+		for j >= 0 && prices[i] > prices[j] { // To reduce this loop we can use stack but depend on
+			span++
+			j--
 		}
+		spans[i] = span
 	}
 	return spans
+}
+
+// Total number of substrings n*(n+1)/2
+func longestValidParentheses(s string) int {
+	if len(s) < 1 {
+		return 0
+	}
+	answer := 0
+	stack := NewStack(len(s))
+	for i := 0; i < len(s); i++ {
+		char := s[i : i+1]
+		if char == "(" {
+			stack.Push(i)
+		} else {
+			stack.Pop()
+			if stack.IsEmpty() {
+				stack.Push(i)
+			} else {
+				answer = utils.MaxOf(answer, i-stack.Peek().(int))
+			}
+		}
+	}
+	return answer
 }

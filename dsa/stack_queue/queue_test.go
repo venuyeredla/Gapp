@@ -1,6 +1,8 @@
 package stack_queue
 
-import "testing"
+import (
+	"testing"
+)
 
 const iterations = 1024
 

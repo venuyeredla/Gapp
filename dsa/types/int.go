@@ -19,9 +19,8 @@ type UInt uint
 func (self Int8) Equals(other Equatable) bool {
 	if o, ok := other.(Int8); ok {
 		return self == o
-	} else {
-		return false
 	}
+	return false
 }
 
 func (self Int8) Less(other Sortable) bool {

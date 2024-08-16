@@ -16,25 +16,6 @@ type PriorityQueue struct {
 	list []PqEntry
 }
 
-/*
-type PriorityQueue interface {
-	types.Sized
-	Push(element PqElement)
-	Peek() PqElement
-	Pop() PqElement
-}
-*/
-
-// A binary heap for Priority Queues. The priorities are modeled
-// explicitly as integers. It can work either as a min heap or a max
-// heap.
-
-// Make a new binary heap.
-// size : hint for the size of the heap
-//
-//	(should estimate the maximal size)
-//
-// min : false == max heap, true == min heap
 func NewPQ(size int, is_min bool) *PriorityQueue {
 	return &PriorityQueue{
 		min:  is_min,
@@ -235,12 +216,4 @@ func KthLargestSumSubArray(a []int, k int) int {
 		}
 	}
 	return pq.Pop().Priority
-}
-
-/*
-Sorting?
-*/
-func rearangeString(str string) string {
-
-	return ""
 }

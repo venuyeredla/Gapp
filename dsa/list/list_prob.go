@@ -1,9 +1,31 @@
 package linked
 
 import (
+	"Gapp/dsa/stack_queue"
 	"container/list"
 	"fmt"
+	"strings"
 )
+
+/*
+# Notes
+Use sentinel(dummy head)
+
+# Problems.
+1. Merge two sorted lists.
+2. Reverse SLL & DLL.
+3. Cycles in SLL.
+4. Test for overlappeing lists.
+5. Remove duplicates from sorted list.
+6. Cyclic right shift
+7. Test for palindrome of list.
+8. Add list based integers.
+*/
+
+type LNode struct {
+	Value              any
+	Prev, Next, Random *LNode
+}
 
 func goList() {
 	list := list.New()
@@ -24,23 +46,6 @@ func goList() {
 	//list.PushBack()
 
 }
-
-/**  Problems   **/
-
-/*
-# Notes
-Use sentinel(dummy head)
-
-# Problems.
-1. Merge two sorted lists.
-2. Reverse SLL & DLL.
-3. Cycles in SLL.
-4. Test for overlappeing lists.
-5. Remove duplicates from sorted list.
-6. Cyclic right shift
-7. Test for palindrome of list.
-8. Add list based integers.
-*/
 
 /*
 Trying to merge into first tree.
@@ -64,4 +69,101 @@ func AddTwoNumbers(list1, list2 *list.List) *list.List {
 		c2 = c2.Next()
 	}
 	return list1
+}
+
+/*
+1. Iteration
+2. Stack
+3. Recursion
+*/
+func listReversalStack(h *LNode) *LNode {
+
+	pointer := h
+	stack := stack_queue.NewStack(10)
+	for pointer != nil {
+		temp := pointer
+		pointer = pointer.Next
+		temp.Next = nil
+		stack.Push(temp)
+	}
+	var newHead, tail *LNode
+	for !stack.IsEmpty() {
+		newNode := stack.Pop().(*LNode)
+		if newHead == nil {
+			newHead, tail = newNode, newNode
+		} else {
+			tail.Next = newNode
+			tail = newNode
+		}
+	}
+	return newHead
+}
+
+func listReversalRecursion(h *LNode) *LNode {
+	if h == nil || h.Next == nil {
+		return h
+	}
+	temp := h
+	h = h.Next
+	temp.Next = nil
+	rev := listReversalRecursion(h)
+	tail := rev
+	for tail != nil {
+		tail = tail.Next
+	}
+	tail.Next = temp
+	return rev
+}
+
+func deepClone(head *LNode) *LNode {
+	iter := head
+	nodeMapping := make(map[*LNode]*LNode)
+
+	for iter != nil {
+		nodeMapping[iter] = &LNode{Value: iter.Value}
+		iter = iter.Next
+	}
+	iter = head
+	for iter != nil {
+		nodeMapping[iter].Next = nodeMapping[iter.Next]
+		nodeMapping[iter].Random = nodeMapping[iter.Random]
+		iter = iter.Next
+	}
+	return nodeMapping[head]
+}
+
+func reorganizeString(s string) string {
+	var h, t *LNode
+	for i := range s {
+		nn := &LNode{Value: s[i : i+1]}
+		if h == nil {
+			h = nn
+			t = nn
+		} else {
+			t.Next = nn
+			t = t.Next
+		}
+	}
+	temp := h
+	for temp != nil && temp.Next != nil {
+		if temp.Next.Value.(string) == temp.Value.(string) {
+			nt := temp.Next
+			if nt.Next == nil {
+				return ""
+			}
+			temp.Next = nt.Next
+			nt.Next = nil
+			t.Next = nt
+			t = t.Next
+		} else {
+			temp = temp.Next
+		}
+	}
+	var sb strings.Builder
+	temp = h
+	for temp != nil {
+		sb.WriteString(temp.Value.(string))
+		temp = temp.Next
+	}
+	return sb.String()
 }

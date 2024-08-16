@@ -1,6 +1,8 @@
 package stack_queue
 
-import "container/list"
+import (
+	"container/list"
+)
 
 type Queue struct {
 	l *list.List

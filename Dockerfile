@@ -2,13 +2,13 @@
 FROM alpine:3.14
 
 RUN mkdir -p /app/static
-COPY ./static/*   /app/static/
+COPY ./wstatic/*   /app/wstatic/
 
 WORKDIR /app
 
 COPY ./Gapp  /app/
 
-EXPOSE 2023
+EXPOSE 2024
 
 # Run
 CMD ["./Gapp"]

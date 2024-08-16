@@ -5,9 +5,12 @@ type ContactInfo struct {
 	Email string `json:"eamil"`
 }
 
-type Customer struct {
-	Firstname   string      `json:"firstname"`
-	Lastname    string      `json:"lastname"`
+type EcomUser struct {
+	Id          int         `json:"id" db:"id"`
+	Firstname   string      `json:"firstname" db:"first_name"`
+	Lastname    string      `json:"lastname" db:"last_name"`
+	Email       string      `json:"email" db:"email"`
+	Pwd         string      `json:"pwd" db:"pwd"`
 	ContactInfo ContactInfo `json:"contact"`
 }
 

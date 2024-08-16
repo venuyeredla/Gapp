@@ -1,0 +1,246 @@
+2024/08/02 10:55:13 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 10:55:13 Setting up file server and api handlers
+2024/08/02 11:09:28 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:09:28 Setting up file server and api handlers
+2024/08/02 11:09:28 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:12:12 Requested URL before processing = /api/authenticate
+2024/08/02 11:12:12 After = /api/authenticate
+2024/08/02 11:13:16 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:13:16 Setting up file server and api handlers
+2024/08/02 11:13:16 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:13:32 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:13:32 Setting up file server and api handlers
+2024/08/02 11:13:32 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:13:58 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:13:58 Setting up file server and api handlers
+2024/08/02 11:13:58 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:14:10 Requested URL before processing = /api/authenticate
+2024/08/02 11:14:10 After = /api/authenticate
+2024/08/02 11:15:40 Requested URL before processing = /api/authenticate
+2024/08/02 11:15:40 After = /api/authenticate
+2024/08/02 11:20:28 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:20:28 Setting up file server and api handlers
+2024/08/02 11:20:28 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:21:08 Requested URL before processing = /api/custinfo/1
+2024/08/02 11:21:08 After = /api/custinfo/1
+2024/08/02 11:24:47 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:24:47 Setting up file server and api handlers
+2024/08/02 11:24:47 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:25:39 Requested URL before processing = /api/custinfo/2
+2024/08/02 11:28:49 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:28:49 Setting up file server and api handlers
+2024/08/02 11:28:49 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:28:55 Requested URL before processing = /api/custinfo/2
+2024/08/02 11:28:55 After = /api/custinfo/2
+2024/08/02 11:30:06 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:30:06 Setting up file server and api handlers
+2024/08/02 11:30:06 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:30:47 Requested URL before processing = /api/custinfo/2
+2024/08/02 11:30:47 After = /api/custinfo/2
+2024/08/02 11:39:45 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:39:45 Setting up file server and api handlers
+2024/08/02 11:39:45 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:39:45 listen error : listen tcp :2024: bind: address already in use
+2024/08/02 11:40:11 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:40:11 Setting up file server and api handlers
+2024/08/02 11:40:11 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:40:11 listen: listen tcp :2024: bind: address already in use
+2024/08/02 11:44:20 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:44:20 Setting up file server and api handlers
+2024/08/02 11:44:20 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:44:20 listen: listen tcp :2024: bind: address already in use
+2024/08/02 11:49:33 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:49:33 Setting up file server and api handlers
+2024/08/02 11:49:33 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2023
+2024/08/02 11:49:33 listen error : listen tcp :2024: bind: address already in use
+2024/08/02 11:58:47 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:58:47 Setting up file server and api handlers
+2024/08/02 11:58:47 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 11:58:47 listen: listen tcp :2024: bind: address already in use
+2024/08/02 11:59:38 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 11:59:38 Setting up file server and api handlers
+2024/08/02 12:00:06 Requested URL before processing = /api/authenticate
+2024/08/02 12:00:06 After = /api/authenticate
+2024/08/02 12:00:24 Requested URL before processing = /api/custinfo/2
+2024/08/02 12:00:24 After = /api/custinfo/2
+2024/08/02 12:12:45 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 12:12:45 Setting up file server and api handlers
+2024/08/02 12:12:45 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 12:12:53 Requested URL before processing = /api/custinfo/2
+2024/08/02 12:12:53 After = /api/custinfo/2
+2024/08/02 12:13:02 Shutdown Server ...
+2024/08/02 12:13:02 Shutting down db connection pool
+2024/08/02 12:13:07 timeout of 5 seconds.
+2024/08/02 12:13:07 Server exiting
+2024/08/02 12:14:01 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 12:14:01 Setting up file server and api handlers
+2024/08/02 12:14:01 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 12:14:08 Requested URL before processing = /api/custinfo/2
+2024/08/02 12:14:08 After = /api/custinfo/2
+2024/08/02 12:14:15 Shutdown Server ...
+2024/08/02 12:14:15 Shutting down db connection pool
+2024/08/02 12:14:20 timeout of 5 seconds.
+2024/08/02 12:14:20 Server exiting
+2024/08/02 13:38:59 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 13:38:59 Setting up file server and api handlers
+2024/08/02 13:38:59 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 13:39:05 Requested URL before processing = /api/custinfo/2
+2024/08/02 13:39:05 After = /api/custinfo/2
+2024/08/02 13:43:11 Shutdown Server ...
+2024/08/02 13:43:11 Shutting down db connection pool
+2024/08/02 13:43:16 timeout of 5 seconds.
+2024/08/02 13:43:16 Server exiting
+2024/08/02 13:44:42 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 13:44:42 Setting up file server and api handlers
+2024/08/02 13:44:42 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 13:46:17 Requested URL before processing = /api/custinfo/2
+2024/08/02 13:46:17 After = /api/custinfo/2
+2024/08/02 13:47:28 Requested URL before processing = /api/authenticate
+2024/08/02 13:47:28 After = /api/authenticate
+2024/08/02 13:47:49 Shutdown Server ...
+2024/08/02 13:47:49 Shutting down db connection pool
+2024/08/02 13:47:54 timeout of 5 seconds.
+2024/08/02 13:47:54 Server exiting
+2024/08/02 13:48:11 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 13:48:11 Setting up file server and api handlers
+2024/08/02 13:48:11 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 13:48:21 Requested URL before processing = /api/authenticate
+2024/08/02 13:48:21 After = /api/authenticate
+2024/08/02 13:50:38 Requested URL before processing = /api/authenticate
+2024/08/02 13:50:38 After = /api/authenticate
+2024/08/02 13:50:51 Requested URL before processing = /api/authenticate
+2024/08/02 13:50:51 After = /api/authenticate
+2024/08/02 13:52:20 Shutdown Server ...
+2024/08/02 13:52:20 Shutting down db connection pool
+2024/08/02 13:52:25 timeout of 5 seconds.
+2024/08/02 13:52:25 Server exiting
+2024/08/02 15:10:57 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 15:10:57 Setting up file server and api handlers
+2024/08/02 15:10:57 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 15:12:23 Requested URL before processing = /api/auth
+2024/08/02 15:12:23 After = /api/auth
+2024/08/02 15:13:41 Request path is : /api/custinfo/2
+2024/08/02 15:13:41 Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUyNzAxNDMsImZpcnN0X25hbWUiOiJ2ZW51IiwiaWF0IjoxNzIyNTkxNzQzLCJsYXN0X25hbWUiOiJnb3BhbCIsIm5iZiI6MTcyMjU5MTc0Mywic3ViIjoidmVudWdvcGFsQGVjb20uY29tIn0.F05sLxWgJ8SajrC0lfvqcH7pgi5lkyw1IzuLbm3mGjw
+2024/08/02 15:13:41 Token validation is sucessful
+2024/08/02 15:13:41 
+2024/08/02 15:15:22 Shutdown Server ...
+2024/08/02 15:15:22 Shutting down db connection pool
+2024/08/02 15:15:27 timeout of 5 seconds.
+2024/08/02 15:15:27 Server exiting
+2024/08/02 17:25:20 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 17:25:20 Setting up file server and api handlers
+2024/08/02 17:25:20 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 17:25:37 Requested URL before processing = /api/auth
+2024/08/02 17:25:37 After = /api/auth
+2024/08/02 17:56:34 Requested URL before processing = /api/auth
+2024/08/02 17:56:34 After = /api/auth
+2024/08/02 17:56:44 Requested URL before processing = /api/auth
+2024/08/02 17:56:44 After = /api/auth
+2024/08/02 17:57:19 Requested URL before processing = /api/auth
+2024/08/02 17:57:19 After = /api/auth
+2024/08/02 17:57:35 Request path is : /api/custinfo/2
+2024/08/02 17:57:35 Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUyODAwMzksImZpcnN0X25hbWUiOiJ2ZW51IiwiaWF0IjoxNzIyNjAxNjM5LCJsYXN0X25hbWUiOiJnb3BhbCIsIm5iZiI6MTcyMjYwMTYzOSwic3ViIjoidmVudWdvcGFsQGVjb20uY29tIn0.R1BP_HxQjvUiGfAOpM5a7Yl9PjrNzLErsezeAz3A7Lc
+2024/08/02 17:57:35 Token validation is sucessful
+2024/08/02 17:57:35 
+2024/08/02 17:57:50 Request path is : /api/custinfo/2
+2024/08/02 17:57:50 Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUyODAwMzksImZpcnN0X25hbWUiOiJ2ZW51IiwiaWF0IjoxNzIyNjAxNjM5LCJsYXN0X25hbWUiOiJnb3BhbCIsIm5iZiI6MTcyMjYwMTYzOSwic3ViIjoidmVudWdvcGFsQGVjb20uY29tIn0.R1BP_HxQjvUiGfAOpM5a7Yl9PjrNzLErsezeAz3A7
+2024/08/02 17:57:50 token is malformed: could not base64 decode signature: illegal base64 data at input byte 40
+2024/08/02 17:58:20 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 17:58:20 Setting up file server and api handlers
+2024/08/02 17:58:20 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 17:58:31 Request path is : /api/custinfo/2
+2024/08/02 17:58:31 Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUyODAwMzksImZpcnN0X25hbWUiOiJ2ZW51IiwiaWF0IjoxNzIyNjAxNjM5LCJsYXN0X25hbWUiOiJnb3BhbCIsIm5iZiI6MTcyMjYwMTYzOSwic3ViIjoidmVudWdvcGFsQGVjb20uY29tIn0.R1BP_HxQjvUiGfAOpM5a7Yl9PjrNzLErsezeAz3A7Lc
+2024/08/02 17:58:31 Token validation is sucessful
+2024/08/02 17:58:31 
+2024/08/02 17:58:46 Request path is : /api/custinfo/2
+2024/08/02 17:58:46 Authorization : Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUyODAwMzksImZpcnN0X25hbWUiOiJ2ZW51IiwiaWF0IjoxNzIyNjAxNjM5LCJsYXN0X25hbWUiOiJnb3BhbCIsIm5iZiI6MTcyMjYwMTYzOSwic3ViIjoidmVudWdvcGFsQGVjb20uY29tIn0.R1BP_HxQjvUiGfAOpM5a7Yl9PjrNzLErsezeAz3A7Lc
+2024/08/02 17:58:46 token is malformed: could not JSON decode header: invalid character 'È' looking for beginning of value
+2024/08/02 18:01:36 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/02 18:01:36 Setting up file server and api handlers
+2024/08/02 18:01:36 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/02 18:01:40 Request path is : /api/custinfo/2
+2024/08/02 18:01:40 Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUyODAwMzksImZpcnN0X25hbWUiOiJ2ZW51IiwiaWF0IjoxNzIyNjAxNjM5LCJsYXN0X25hbWUiOiJnb3BhbCIsIm5iZiI6MTcyMjYwMTYzOSwic3ViIjoidmVudWdvcGFsQGVjb20uY29tIn0.R1BP_HxQjvUiGfAOpM5a7Yl9PjrNzLErsezeAz3A7Lc
+2024/08/02 18:01:40 Token validation is sucessful
+2024/08/02 18:01:40 
+2024/08/02 18:01:47 Request path is : /api/custinfo/2
+2024/08/02 18:01:47 Authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUyODAwMzksImZpcnN0X25hbWUiOiJ2ZW51IiwiaWF0IjoxNzIyNjAxNjM5LCJsYXN0X25hbWUiOiJnb3BhbCIsIm5iZiI6MTcyMjYwMTYzOSwic3ViIjoidmVudWdvcGFsQGVjb20uY29tIn0.R1BP_HxQjvUiGfAOpM5a7Yl9PjrNzLErsezeAz3A7L
+2024/08/02 18:01:47 error in token parsing
+2024/08/02 18:01:47 token signature is invalid: signature is invalid
+2024/08/08 10:00:07 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 10:00:07 Setting up file server and api handlers
+2024/08/08 10:00:54 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 10:00:54 Setting up file server and api handlers
+2024/08/08 10:00:54 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/08 10:03:28 Shutdown Server ...
+2024/08/08 10:03:28 Shutting down db connection pool
+2024/08/08 10:03:33 timeout of 5 seconds.
+2024/08/08 10:03:33 Server exiting
+2024/08/08 10:13:41 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 10:13:41 Setting up file server and api handlers
+2024/08/08 10:13:41 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/08 10:14:41 websocket: close 1000 (normal), error while reading message
+2024/08/08 10:19:16 Shutdown Server ...
+2024/08/08 10:19:16 Shutting down db connection pool
+2024/08/08 10:19:21 timeout of 5 seconds.
+2024/08/08 10:19:21 Server exiting
+2024/08/08 10:23:22 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 10:23:22 Setting up file server and api handlers
+2024/08/08 10:23:22 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/08 10:24:13 websocket: close 1000 (normal), error while reading message
+2024/08/08 10:34:36 Shutdown Server ...
+2024/08/08 10:34:36 Shutting down db connection pool
+2024/08/08 10:34:41 timeout of 5 seconds.
+2024/08/08 10:34:41 Server exiting
+2024/08/08 10:41:44 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 10:41:44 Setting up file server and api handlers
+2024/08/08 10:41:44 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/08 10:42:50 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:42:50 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:43:24 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:43:24 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:43:24 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:44:47 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:44:47 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:44:47 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:44:47 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:44:47 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:49:16 websocket: close 1001 (going away), error while reading message
+2024/08/08 10:49:16 websocket: close 1001 (going away), error while reading message
+2024/08/08 11:12:48 websocket: close 1000 (normal), error while reading message
+2024/08/08 11:13:01 websocket: close 1000 (normal), error while reading message
+2024/08/08 11:19:26 Shutdown Server ...
+2024/08/08 11:19:26 Shutting down db connection pool
+2024/08/08 11:19:31 timeout of 5 seconds.
+2024/08/08 11:19:31 Server exiting
+2024/08/08 11:19:34 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 11:19:34 Setting up file server and api handlers
+2024/08/08 11:19:34 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/08 11:20:44 websocket: close 1000 (normal), error while reading message
+2024/08/08 11:20:58 Shutdown Server ...
+2024/08/08 11:20:58 Shutting down db connection pool
+2024/08/08 11:21:03 timeout of 5 seconds.
+2024/08/08 11:21:03 Server exiting
+2024/08/08 11:21:07 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 11:21:07 Setting up file server and api handlers
+2024/08/08 11:21:07 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/08 11:37:48 Shutdown Server ...
+2024/08/08 11:37:48 Shutting down db connection pool
+2024/08/08 11:37:53 timeout of 5 seconds.
+2024/08/08 11:37:53 Server exiting
+2024/08/08 11:38:00 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 11:38:00 Setting up file server and api handlers
+2024/08/08 11:38:00 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/08 11:39:15 websocket: close 1000 (normal), error while reading message
+2024/08/08 15:45:18 Shutdown Server ...
+2024/08/08 15:45:18 Shutting down db connection pool
+2024/08/08 15:45:23 timeout of 5 seconds.
+2024/08/08 15:45:23 Server exiting
+2024/08/08 15:47:51 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 15:47:51 Setting up file server and api handlers
+2024/08/08 15:48:09 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/08 15:48:09 Setting up file server and api handlers
+2024/08/08 15:48:09 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/08 15:51:54 Shutdown Server ...
+2024/08/08 15:51:54 Shutting down db connection pool
+2024/08/08 15:51:59 timeout of 5 seconds.
+2024/08/08 15:51:59 Server exiting

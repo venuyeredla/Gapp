@@ -128,8 +128,10 @@ func TestKthSumSubArr(t *testing.T) {
 	fmt.Println("Result = %V", result)
 }
 
+/*
 func TestRearrange(t *testing.T) {
 	input := "aaabc"
 	result := rearangeString(input)
 	fmt.Println("Result = %V", result)
 }
+*/

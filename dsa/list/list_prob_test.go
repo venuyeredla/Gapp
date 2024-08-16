@@ -32,3 +32,15 @@ func TestAddTwo(t *testing.T) {
 	}
 
 }
+
+func TestReorganizeString(t *testing.T) {
+	inputs := []string{"aab", "aaab"}
+	outputs := []string{"aba", ""}
+	for i := 0; i < len(inputs); i++ {
+		result := reorganizeString(inputs[i])
+		if result != outputs[i] {
+			fmt.Printf("Input, exipectd,   actual = %v , %v, %v  ", inputs[i], outputs[i], result)
+			t.FailNow()
+		}
+	}
+}

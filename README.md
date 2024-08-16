@@ -27,12 +27,12 @@ Implementing all data storage systems like RDBMS,NOSQL,Information Retrieval as 
 
 # NoSQL 
   Append only for high write throghputs
- 
 
- Developing Micro Services using. Go lang .
+## Developing Micro Services using. Golang .
 
-# Web frameworks : Gorilla & Gin
-
+# Web frameworks : 
+    Gorilla =>
+    Gin =>
 
 # Authentication & authorization
 (Oauth2 is used to access Microsoft Graph API)
@@ -40,11 +40,12 @@ Implementing all data storage systems like RDBMS,NOSQL,Information Retrieval as 
 JWT token implementation:
 https://github.com/golang-jwt/jwt
 
-Making http client with certs to access HTTPS service.
-
  
 # RDBMD Accessing databases 
 Oracle : https://github.com/sijms/go-ora
+Mysql : go get -u github.com/go-sql-driver/mysql
+
+# HTTP client with certs to access HTTPS service.
 
 
 Redis Integration:
@@ -55,8 +56,12 @@ Kafka :
 https://github.com/confluentinc/confluent-kafka-go
 
 
-Mail library : 
+Mail library:
 
 Logging 
 splunk.
 Data dog.
+
+# commands useful 
+  to clean $> go mod tidy
+  $ > go get github.com/gorilla/websocket
