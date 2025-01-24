@@ -65,3 +65,25 @@ Data dog.
 # commands useful 
   to clean $> go mod tidy
   $ > go get github.com/gorilla/websocket
+
+
+  ## Minikube :
+  https://minikube.sigs.k8s.io/docs/drivers/docker/
+  $> minikube start --driver=docker
+  $> minikube config set driver docker
+  $> minikube  service hello-minikube
+
+## Kubernetes
+    Services : kubectl get services | pods | deployments
+
+    create $ kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
+
+    expose $ kubectl expose deployment hello-minikube --type=LoadBalancer --port=8080
+
+
+kubectl expose deployment/goapp-deployment --type=LoadBalancer --port=2024
+
+minikube  service goapp-deployment
+
+
+kubectl describe pod goapp-deployment-6995c466fd-5jkbk

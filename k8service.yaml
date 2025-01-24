@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: goapp-service
+spec:
+  selector:
+    app.kubernetes.io/name: goapp
+  ports:
+    - protocol: TCP
+      port: 2024
+      targetPort: 2024
+  type: LoadBalancer
+#status:
+#  loadBalancer:
+#    ingress:
+#    - ip: 192.0.2.127

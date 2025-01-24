@@ -14,7 +14,7 @@ var db_con_pool *sql.DB // Database connection pool.
 
 const (
 	DATA_BASE_NAME       = "mysql"
-	DB_CONNECTION_STRING = "root:ecompwd#24@tcp(localhost:3306)/ecom"
+	DB_CONNECTION_STRING = "root:ecompwd#24@tcp(192.168.68.101:3306)/ecom"
 	C_CREATE             = "CREATE TABLE Customer(id INTEGER PRIMARY KEY, name TEXT, price INT);"
 )
 

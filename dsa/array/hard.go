@@ -42,14 +42,12 @@ Algoirthm:
  3. When you are exceeding previous jump range increase count
 */
 func minJumpsRequred(nums []int) int {
-
 	var max = func(x, y int) int {
 		if x > y {
 			return x
 		}
 		return y
 	}
-
 	minJumps := 0
 	currentJumpRange := 0
 	maxJump := 0

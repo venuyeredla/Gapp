@@ -7,27 +7,73 @@ import (
 	"time"
 )
 
+type A struct {
+	Mutex sync.Mutex
+	Value int
+}
+
+type B struct {
+	Mutex sync.Mutex
+	Value int
+}
+
+func DeadLock() {
+	var wg sync.WaitGroup
+	wg.Add(2)
+	a := &A{Value: 1}
+	b := &B{Value: 1}
+
+	var Worker1 = func(a *A, b *B) {
+		defer wg.Done()
+		a.Mutex.Lock()
+		fmt.Println("goroutine 1 acquired lock 1")
+		time.Sleep(100 * time.Microsecond)
+		b.Mutex.Lock()
+		fmt.Println("goroutine 1 acquired lock 2")
+		//a.Mutex.Unlock()
+	}
+
+	var Worker2 = func(a *A, b *B) {
+		defer wg.Done()
+		b.Mutex.Lock()
+		fmt.Println("goroutine 2 acquired lock 2")
+		time.Sleep(100 * time.Microsecond)
+		a.Mutex.Lock()
+		fmt.Println("goroutine 2 acquired lock 1")
+		//	b.Mutex.Unlock()
+	}
+	go Worker1(a, b)
+	go Worker2(a, b)
+}
+
+func PubSub() {
+	wg.Add(2)
+	intChannel := make(chan int)
+	var Publisher = func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println("Publisher adding : ", i)
+			intChannel <- i
+			time.Sleep(time.Duration(5 * time.Millisecond))
+		}
+		close(intChannel)
+		wg.Done()
+	}
+	var Consumer = func() {
+		for val := range intChannel {
+			fmt.Println("Consumer : ", val)
+		}
+		wg.Done()
+	}
+	go Publisher()
+	go Consumer()
+	wg.Wait()
+
+}
+
 var wg = sync.WaitGroup{}
 
 func TestGoRoutine() {
-	wg.Add(2)
-	go fun1()
-	go fun2()
-	wg.Wait()
-}
-func fun1() {
-	for i := 0; i < 10; i++ {
-		fmt.Println("fun1,  ->", i)
-		time.Sleep(time.Duration(5 * time.Millisecond))
-	}
-	wg.Done()
-}
-func fun2() {
-	for i := 0; i < 10; i++ {
-		fmt.Println("fun2,  ->", i)
-		time.Sleep(time.Duration(10 * time.Millisecond))
-	}
-	wg.Done()
+
 }
 
 var wait sync.WaitGroup

@@ -1,4 +1,4 @@
-package linked
+package list
 
 import (
 	"container/list"

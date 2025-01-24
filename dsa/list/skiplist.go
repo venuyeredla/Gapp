@@ -1,4 +1,4 @@
-package linked
+package list
 
 import (
 	newRand "math/rand"

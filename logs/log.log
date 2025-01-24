@@ -244,3 +244,12 @@
 2024/08/08 15:51:54 Shutting down db connection pool
 2024/08/08 15:51:59 timeout of 5 seconds.
 2024/08/08 15:51:59 Server exiting
+2024/08/16 07:45:55 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/16 07:45:55 Setting up file server and api handlers
+2024/08/16 07:46:40 Host Venugopals-MacBook-Air.local, Page/Block size =16384 
+2024/08/16 07:46:40 Setting up file server and api handlers
+2024/08/16 07:46:41 Application is available at Host: Venugopals-MacBook-Air.local and  Port=2024
+2024/08/16 07:48:48 Shutdown Server ...
+2024/08/16 07:48:48 Shutting down db connection pool
+2024/08/16 07:48:53 timeout of 5 seconds.
+2024/08/16 07:48:53 Server exiting

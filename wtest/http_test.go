@@ -21,7 +21,6 @@ func TestAuthEndpoint(t *testing.T) {
 		    "password" : ""
 		    }
 	*/
-
 	requesBody := &handlers.AuthRequest{UserName: "venugopal@ecom.com", Password: "ecom#24"}
 	bytearr, error := json.Marshal(requesBody)
 

@@ -34,7 +34,6 @@ func bfs(graph [][]int) { //Adjacency list
 }
 
 func ladderLength(beginWord string, endWord string, wordList []string) int {
-
 	patMap := make(map[string][]string)
 	L := len(beginWord)
 	for i := 0; i < L; i++ {

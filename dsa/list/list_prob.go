@@ -1,4 +1,4 @@
-package linked
+package list
 
 import (
 	"Gapp/dsa/stack_queue"
