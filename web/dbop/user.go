@@ -6,11 +6,23 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strings"
 
 	_ "github.com/go-sql-driver/mysql" // _ refers to for side effects.
 )
 
-func Create(custoemr *models.EcomUser) {
+/*
+1. User, with roles.
+2. Password need to be encrypted.
+3. How do you implment password reset.
+4. Password generate
+*/
+const (
+	AUTH_QUERY = `SELECT U.user_id, U.first_name, U.last_name, U.email, GROUP_CONCAT(R.ROLE_NAME ORDER BY R.ROLE_NAME ASC SEPARATOR ', ') as ROLES from USER U INNER JOIN USER_ROLE UR on U.user_id=UR.USER_ID INNER JOIN ROLE R on UR.ROLE_ID=R.ROLE_ID where U.email ='%s' AND U.pwd='%s' GROUP BY U.user_id,
+U.first_name, U.last_name, U.email`
+)
+
+func Create(custoemr *models.User) {
 	ctx := context.Background()
 	sqlConn, con_err := db_con_pool.Conn(ctx)
 	if con_err != nil {
@@ -30,7 +42,7 @@ func Create(custoemr *models.EcomUser) {
 	tx.Commit()
 }
 
-func GetUserInfo(userid int) *models.EcomUser {
+func Authenticate(authReq models.AuthRequest) (*models.User, error) {
 	ctx := context.Background()
 	sqlConn, con_err := db_con_pool.Conn(ctx)
 	if con_err != nil {
@@ -41,17 +53,26 @@ func GetUserInfo(userid int) *models.EcomUser {
 	if tx_error != nil {
 		log.Fatal("Error in initialzing transaction")
 	}
-	row := sqlConn.QueryRowContext(ctx, "select * from ecom_user")
-	var euser models.EcomUser
-	e1 := row.Scan(&euser.Id, &euser.Firstname, &euser.Lastname, &euser.Email, &euser.Pwd)
-	if e1 != nil {
-		log.Fatal(e1.Error())
+
+	auth_query := fmt.Sprintf(AUTH_QUERY, authReq.UserName, authReq.Password)
+
+	row := sqlConn.QueryRowContext(ctx, auth_query)
+	var euser models.User
+	var rolesString string
+	scanError := row.Scan(&euser.Id, &euser.Firstname, &euser.Lastname, &euser.Email, &rolesString)
+	if scanError != nil {
+		log.Default().Println(scanError.Error())
+		tx.Rollback()
+		return nil, scanError
+	}
+	if len(rolesString) > 0 {
+		euser.Roles = strings.Split(rolesString, ", ")
 	}
 	tx.Commit()
-	return &euser
+	return &euser, nil
 }
 
-func GetUserInfos() []*models.EcomUser {
+func GetUserInfos() []*models.User {
 	//db, err := sql.Open("sqlite3", ":memory:")
 	ctx := context.Background()
 	sqlConn, con_err := db_con_pool.Conn(ctx)
@@ -65,10 +86,10 @@ func GetUserInfos() []*models.EcomUser {
 	}
 	defer rows.Close()
 
-	custmers := make([]*models.EcomUser, 0)
+	custmers := make([]*models.User, 0)
 
 	for rows.Next() {
-		var customer models.EcomUser
+		var customer models.User
 		err = rows.Scan(&customer.Firstname, &customer.Lastname, &customer.Firstname)
 		if err != nil {
 			log.Fatal(err)
@@ -78,7 +99,7 @@ func GetUserInfos() []*models.EcomUser {
 	return custmers
 }
 
-func Update(custoemr *models.EcomUser) {
+func Update(custoemr *models.User) {
 	//db, err := sql.Open("sqlite3", ":memory:")
 	db, err := sql.Open(DATA_BASE_NAME, DB_CONNECTION_STRING)
 	if err != nil {

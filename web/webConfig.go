@@ -3,6 +3,7 @@ package web
 import (
 	"Gapp/web/dbop"
 	"Gapp/web/handlers"
+	"Gapp/web/models"
 	"log"
 	"net/http"
 
@@ -22,19 +23,33 @@ func JwtValidate(ginHandler gin.HandlerFunc) gin.HandlerFunc {
 		log.Printf("Request path is : %v", gctx.Request.URL.Path)
 		//Authorization: Bearer <token>
 		authHeader := gctx.Request.Header.Get("Authorization")
-		log.Printf("Authorization : %v", authHeader)
-		token := authHeader[7:]
-		claims := handlers.ParseToken(token)
-		if handlers.IsValidToken(claims) {
-			log.Printf("Token validation is sucessful")
-			ginHandler(gctx)
+
+		if authHeader != "" {
+			log.Printf("Authorization : %v", authHeader)
+			token := authHeader[7:]
+			claims := handlers.ParseToken(token)
+			if handlers.IsValidToken(claims) {
+				log.Printf("Token validation is sucessful")
+				ginHandler(gctx)
+			} else {
+				log.Printf("Token validation is failed")
+				eresp := &models.ErrorResponse{Msg: "Invalid credentials"}
+				gctx.JSON(http.StatusUnauthorized, eresp)
+			}
+
 		} else {
-			log.Printf("Token validation is failed")
-			eresp := &handlers.ErrorResponse{Msg: "Invalid credentials"}
+			log.Printf("Token doesn't exist")
+			eresp := &models.ErrorResponse{Msg: "Token doesn't exist"}
 			gctx.JSON(http.StatusUnauthorized, eresp)
 		}
-		log.Println()
+
 	}
+}
+
+const API_CONTEXT = "/api/v1"
+
+func ApiPath(uri string) string {
+	return API_CONTEXT + uri
 }
 
 func ApplicationConfig() *gin.Engine {
@@ -54,9 +69,12 @@ func ApplicationConfig() *gin.Engine {
 	router.StaticFileFS("/more_favicon.ico", "more_favicon.ico", http.Dir("my_file_system"))
 	*/
 	var customerAPI handlers.CustomerAPI
-	router.POST("/api/auth", Logging(handlers.Authenticate))
-	router.POST("/api/signup", Logging(handlers.SignUp))
-	router.GET("/api/custinfo/:id", JwtValidate(customerAPI.CustInfo))
+	router.POST(ApiPath("/auth/signin"), Logging(handlers.Authenticate))
+	router.POST(ApiPath("/auth/signup"), Logging(handlers.SignUp))
+
+	router.GET(ApiPath("/customer/info/:id"), JwtValidate(customerAPI.CustInfo))
+
+	router.GET(ApiPath("/product/getproducts"), Logging(handlers.GetProducts))
 
 	router.GET("/chat", handlers.WebChat)
 

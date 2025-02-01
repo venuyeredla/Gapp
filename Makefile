@@ -2,7 +2,7 @@ Hello :
 	echo "Hello Gapp"
 
 Run:
-	go run GoApp.go
+	go run Application.go
 
 Build:
 	go bulid

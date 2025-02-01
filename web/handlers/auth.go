@@ -18,44 +18,28 @@ const (
 	ECRYPT_ALGO = "HS256"
 )
 
-type AuthRequest struct {
-	UserName string `json:"username"`
-	Password string `json:"password"`
-	Role     string `json:"role"`
-}
-
-type AuthResponse struct {
-	Token string `json:"jwtToken"`
-	Algo  string `json:"algo"`
-}
-
-type ErrorResponse struct {
-	Msg    string `json:"msg"`
-	Status string `json:"status"`
-}
-
 func Authenticate(gctx *gin.Context) {
 	//val, ok := gctx.Params.Get("name")
-	var authReq AuthRequest
+	var authReq models.AuthRequest
 	json.NewDecoder(gctx.Request.Body).Decode(&authReq)
-	ecom_db := dbop.GetUserInfo(1)
-	if authReq.UserName == ecom_db.Email {
+	log.Default().Printf("Login request : %s", &authReq)
+	authUser, authError := dbop.Authenticate(authReq)
+	if authError == nil {
 		claims := jwt.MapClaims{
-			"first_name": ecom_db.Firstname,
-			"last_name":  ecom_db.Lastname,
+			"first_name": authUser.Firstname,
+			"last_name":  authUser.Lastname,
 		}
-		signedToken := GenJwtToken(ecom_db.Email, claims)
-		authResp := &AuthResponse{Token: signedToken, Algo: ECRYPT_ALGO}
+		signedToken := GenJwtToken(authUser.Email, claims)
+		authResp := &models.AuthResponse{Token: signedToken, Algo: ECRYPT_ALGO}
 		gctx.JSON(http.StatusOK, authResp)
-
 	} else {
-		eresp := &ErrorResponse{Msg: "Invalid credentials"}
+		eresp := &models.ErrorResponse{Msg: "Invalid credentials"}
 		gctx.JSON(http.StatusUnauthorized, eresp)
 	}
 }
 
 func SignUp(c *gin.Context) {
-	var customer models.EcomUser
+	var customer models.User
 	json.NewDecoder(c.Request.Body).Decode(&customer)
 	c.String(http.StatusOK, "Success fully signed up", customer.Firstname, customer.Lastname)
 }

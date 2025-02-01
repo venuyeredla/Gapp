@@ -5,12 +5,13 @@ type ContactInfo struct {
 	Email string `json:"eamil"`
 }
 
-type EcomUser struct {
+type User struct {
 	Id          int         `json:"id" db:"id"`
 	Firstname   string      `json:"firstname" db:"first_name"`
 	Lastname    string      `json:"lastname" db:"last_name"`
 	Email       string      `json:"email" db:"email"`
-	Pwd         string      `json:"pwd" db:"pwd"`
+	Password    string      `json:"pwd" db:"pwd"`
+	Roles       []string    `json:"roles"`
 	ContactInfo ContactInfo `json:"contact"`
 }
 
@@ -28,4 +29,9 @@ type Todo struct {
 type TodoPageData struct {
 	PageTitle string
 	Todos     []Todo
+}
+
+type Product struct {
+	Name  string  `json:"name"`
+	Price float64 `json:"price"`
 }
